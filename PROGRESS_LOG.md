@@ -285,3 +285,12 @@
   - fig4 ordinal steps: initially FAILED light-end contrast (#9ec5f4, 1.74:1); changed to ramp steps 250/400/600 → PASS (2.06:1);
   - fig3 hexbin uses the full sequential ramp, where the light end may recede (allowed for continuous magnitude).
 - All four figures re-rendered and inspected.
+
+## 2026-10-22 — Full recheck and GitHub
+
+### Completed
+- Reran the entire pipeline from raw data (11 steps, all exit 0). 61 of 63 output tables were byte-identical. The two Random Forest prediction files differed by ~1e-13 µg/m³ (parallel float summation); they are now written at 6 decimals, and two consecutive full runs give identical files. All reported score and bootstrap tables are byte-identical to the original run.
+- Tests: `pytest -q tests` → 116 passed.
+- Secrets scan: neither API key appears in any file outside the git-ignored `.env`.
+- Git initialised (branch main); `.gitignore` extended with `.pytest_cache/` and `.claude/settings.local.json`. First commit 76fe9a7 (123 files; no raw data, credentials or virtual environment).
+- Published by the user via GitHub Desktop as a private repository: github.com/coolagegoon-hub/lahore-air-quality.
