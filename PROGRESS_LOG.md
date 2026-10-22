@@ -294,3 +294,24 @@
 - Secrets scan: neither API key appears in any file outside the git-ignored `.env`.
 - Git initialised (branch main); `.gitignore` extended with `.pytest_cache/` and `.claude/settings.local.json`. First commit 76fe9a7 (123 files; no raw data, credentials or virtual environment).
 - Published by the user via GitHub Desktop as a private repository: github.com/coolagegoon-hub/lahore-air-quality.
+
+## 2026-10-23 — Stage 4: HYSPLIT trajectory features (model layer 5)
+
+### Completed
+- Received `hysplit_results.zip` from the HYSPLIT laptop. Stored in `data/raw/hysplit/` (git-ignored).
+  - Validated here: 2,161 daily 72 h back-trajectories (06 UTC, 500 m AGL, 2019-04-01 → 2025-02-28), 73 points each, CSV SHA-256 matches the README.
+  - HYSPLIT v5.4.2; NCEP/NCAR Reanalysis 2.5°; no failed days.
+- Pre-declared the design before fitting (`results/tables/stage4_predeclaration.md`, commit 2a4b644).
+- Added `src/trajectory_features.py`, `src/stage4_trajectory_model.py` and `tests/test_trajectory_features.py` (5 tests).
+  - k-means (k = 6) is fitted per fold on trajectories arriving before T − 7 days; week T−1 trajectories are only assigned to the fitted centres.
+  - Weekly features: cluster shares, mean 72 h distance, east/south-east sector share, mean height.
+- Results (133 common weeks, 52 Oct–Jan), MAE in µg/m³:
+  - RF L5 29.07 vs L4 29.27; ΔMAE −0.20, 95% CI (−1.22, +0.98). Oct–Jan: −0.27 (−2.67, +2.55). Same with 2- and 8-week blocks.
+  - L1 + trajectories vs L1: −1.30 (−3.28, +0.67).
+  - k = 4/8: 29.49 / 28.90.
+  - L5 beats persistence and climatology; not the Ridge history model.
+- Report: `results/tables/stage4_trajectory_report.md`.
+- Tests: `pytest -q tests` → 121 passed.
+
+### Not completed
+- Trajectory-weighted fire exposure; H1–H3; four-season scheme; embargo options; descriptive clustering; SHAP; results figures.

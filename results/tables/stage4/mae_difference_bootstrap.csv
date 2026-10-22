@@ -1,0 +1,15 @@
+model,compared_to,block_weeks,subset,n,mae_diff,ci95_low,ci95_high,share_boot_below_0
+rf_L5_plus_traj,rf_L4_plus_massbalance,4,all,133,-0.199,-1.219,0.977,0.608
+rf_L5_plus_traj,rf_L4_plus_massbalance,4,smog,52,-0.271,-2.666,2.548,0.612
+rf_L5_plus_traj,rf_L4_plus_massbalance,2,all,133,-0.199,-1.199,0.902,0.638
+rf_L5_plus_traj,rf_L4_plus_massbalance,2,smog,52,-0.271,-2.757,2.437,0.606
+rf_L5_plus_traj,rf_L4_plus_massbalance,8,all,133,-0.199,-1.071,0.991,0.602
+rf_L5_plus_traj,rf_L4_plus_massbalance,8,smog,52,-0.271,-2.792,2.428,0.673
+rf_L1_plus_traj,rf_L1_history,4,all,133,-1.297,-3.279,0.669,0.897
+rf_L1_plus_traj,rf_L1_history,4,smog,52,-2.107,-5.761,2.62,0.806
+rf_L5_plus_traj,history_model,4,all,133,-1.444,-6.023,1.739,0.839
+rf_L5_plus_traj,history_model,4,smog,52,-5.303,-13.669,2.73,0.916
+rf_L5_plus_traj,climatology,4,all,133,-4.599,-8.871,-1.53,0.998
+rf_L5_plus_traj,climatology,4,smog,52,-5.049,-11.577,1.231,0.948
+rf_L5_plus_traj,persistence,4,all,133,-7.333,-13.016,-2.383,0.998
+rf_L5_plus_traj,persistence,4,smog,52,-14.083,-25.271,-3.622,0.998
