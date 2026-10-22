@@ -1,0 +1,10 @@
+subset,baseline,n,mae,rmse,bias,median_ae
+all,persistence,133,36.41,57.91,0.37,19.46
+all,climatology,133,33.67,50.25,-11.59,24.54
+all,history_model,133,30.52,47.09,-4.82,16.87
+smog,persistence,52,64.87,85.07,-6.72,50.75
+smog,climatology,52,55.83,72.82,-23.57,44.17
+smog,history_model,52,56.09,70.89,-10.49,45.7
+non_smog,persistence,81,18.14,29.33,4.92,11.6
+non_smog,climatology,81,19.45,27.25,-3.89,13.02
+non_smog,history_model,81,14.1,20.36,-1.17,11.16

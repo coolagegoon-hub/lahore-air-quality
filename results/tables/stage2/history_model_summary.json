@@ -1,0 +1,20 @@
+{
+  "history_reasons": {
+    "ok": 228,
+    "too_little_training_data": 54,
+    "no_eligible_week_in_lookback": 17
+  },
+  "lookback_weeks": 4,
+  "ridge_alpha": 1.0,
+  "min_train_rows": 52,
+  "features": [
+    "log_last",
+    "age_last",
+    "log_mean4",
+    "n_recent",
+    "sin1",
+    "cos1",
+    "sin2",
+    "cos2"
+  ]
+}

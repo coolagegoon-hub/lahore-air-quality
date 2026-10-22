@@ -1,0 +1,8 @@
+year,valid_hours,repeat_hours,runs_len_ge_3,runs_len_ge_6,max_run_length,hours_above_review_threshold,hours_equal_zero,pct_repeat_of_valid
+2019,5071,106,0,0,2,0,0,2.1
+2020,8128,1287,67,1,6,0,3,15.8
+2021,5795,959,56,0,4,0,9,16.5
+2022,2632,121,4,0,3,0,0,4.6
+2023,6932,415,14,0,3,0,4,6.0
+2024,6719,617,39,2,120,0,9,9.2
+2025,1132,24,0,0,2,0,0,2.1

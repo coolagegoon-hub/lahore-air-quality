@@ -1,0 +1,45 @@
+{
+  "rf_params": {
+    "n_estimators": 300,
+    "min_samples_leaf": 5,
+    "max_features": 0.33,
+    "random_state": 20261021,
+    "n_jobs": -1
+  },
+  "min_train_rows": 52,
+  "layers": {
+    "L1_history": 8,
+    "L2_plus_era5": 29,
+    "L3_plus_fire": 39,
+    "L4_plus_massbalance": 44
+  },
+  "prediction_reasons": {
+    "L1_history": {
+      "ok": 228,
+      "too_little_training_data": 54,
+      "missing_features": 17
+    },
+    "L2_plus_era5": {
+      "ok": 228,
+      "too_little_training_data": 54,
+      "missing_features": 17
+    },
+    "L3_plus_fire": {
+      "ok": 228,
+      "too_little_training_data": 54,
+      "missing_features": 17
+    },
+    "L4_plus_massbalance": {
+      "ok": 228,
+      "too_little_training_data": 54,
+      "missing_features": 17
+    }
+  },
+  "common_set_weeks": 133,
+  "common_set_smog_weeks": 52,
+  "bootstrap": {
+    "block_weeks": 4,
+    "n_boot": 2000,
+    "seed": 20261021
+  }
+}

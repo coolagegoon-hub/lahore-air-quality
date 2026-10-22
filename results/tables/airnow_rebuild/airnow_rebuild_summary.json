@@ -1,0 +1,64 @@
+{
+  "info": {
+    "negative_policy": "invalid",
+    "gmt_files_from": "2019-05-21",
+    "gmt_files_to": "2025-02-18",
+    "rows_in_range": 43212,
+    "negative_values_in_range": 61
+  },
+  "info_keep_negatives": {
+    "negative_policy": "keep_ge_minus5",
+    "gmt_files_from": "2019-05-21",
+    "gmt_files_to": "2025-02-18",
+    "rows_in_range": 43212,
+    "negative_values_in_range": 61
+  },
+  "local_days": 2100,
+  "hours_in_grid": 50400,
+  "airnow_valid_hours": 43151,
+  "airnow_complete_days": 1777,
+  "airnow_keepneg_complete_days": 1780,
+  "openaq_valid_hours_same_days": 36409,
+  "openaq_complete_days_same_days": 1464,
+  "first_valid_hour": "2019-05-22 01:00:00+05:00",
+  "last_valid_hour": "2025-02-18 18:00:00+05:00",
+  "rebuild_vs_airnow_daily": {
+    "days_both": 1778,
+    "project_convention_mean_abs_diff": 0.083,
+    "project_convention_pct_within_0.5": 99.5,
+    "alternative_convention_mean_abs_diff": 2.574,
+    "alternative_convention_pct_within_0.5": 22.6,
+    "min_hours_valid_on_days_airnow_reports": 4,
+    "airnow_daily_days_with_<18_rebuilt_hours": 3,
+    "rebuilt_complete_days_without_airnow_daily": 2
+  },
+  "vs_openaq_daily": {
+    "common_complete_days": 1459,
+    "airnow_complete_only": 318,
+    "openaq_complete_only": 5,
+    "mean_diff_openaq_minus_airnow": 0.104,
+    "mean_abs_diff": 2.582,
+    "max_abs_diff": 63.6,
+    "pearson_r": 0.99869
+  },
+  "alignment_month_labels": {
+    "mixed": 32,
+    "aligned": 28,
+    "shifted_1h_early": 4,
+    "too_few_pairs": 2
+  },
+  "airnow_runs_ge6": [
+    {
+      "first_hour_end": "2020-05-03 09:00:00+05:00",
+      "last_hour_end": "2020-05-03 17:00:00+05:00",
+      "length_h": "9",
+      "value": "24.0"
+    },
+    {
+      "first_hour_end": "2024-05-25 03:00:00+05:00",
+      "last_hour_end": "2024-05-25 08:00:00+05:00",
+      "length_h": "6",
+      "value": "39.0"
+    }
+  ]
+}

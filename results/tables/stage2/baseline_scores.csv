@@ -1,0 +1,10 @@
+set,baseline,n,mae,rmse,bias,median_ae
+persistence_any_age,persistence,234,37.28,58.1,-0.04,20.82
+persistence_age_1,persistence,206,34.25,51.84,-2.77,19.47
+climatology_available,climatology,138,34.04,50.8,-12.44,24.06
+common_persistence,persistence,138,37.82,59.89,-0.48,20.82
+common_climatology,climatology,138,34.04,50.8,-12.44,24.06
+common_smog_persistence,persistence,54,67.02,88.12,-11.02,50.75
+common_smog_climatology,climatology,54,55.48,72.34,-24.02,44.17
+common_nonsmog_persistence,persistence,84,19.05,30.0,6.3,12.28
+common_nonsmog_climatology,climatology,84,20.26,29.59,-4.99,12.66

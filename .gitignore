@@ -1,0 +1,51 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+
+# Raw data (keep folder via .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+
+# Large data files
+*.nc
+*.grib
+*.grib2
+*.h5
+*.hdf5
+*.parquet
+*.feather
+*.zip
+*.tar.gz
+
+# Generated model artifacts (keep folder via .gitkeep)
+models/*
+!models/.gitkeep
+*.pkl
+*.joblib
+*.pt
+
+# Test cache
+.pytest_cache/
+
+# Local Claude Code settings (per machine)
+.claude/settings.local.json

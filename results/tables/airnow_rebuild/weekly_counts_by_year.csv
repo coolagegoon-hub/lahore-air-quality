@@ -1,0 +1,8 @@
+year,airnow_full_weeks,airnow_weeks_ge_7_of_7,airnow_weeks_ge_6_of_7,airnow_weeks_ge_5_of_7,airnow_keepneg_full_weeks,airnow_keepneg_weeks_ge_7_of_7,airnow_keepneg_weeks_ge_6_of_7,airnow_keepneg_weeks_ge_5_of_7,openaq_full_weeks,openaq_weeks_ge_7_of_7,openaq_weeks_ge_6_of_7,openaq_weeks_ge_5_of_7
+2019,31,28,30,31,31,28,30,31,31,22,28,29
+2020,53,50,52,53,53,50,52,53,53,34,43,48
+2021,52,32,33,35,52,32,33,35,52,15,22,27
+2022,52,24,29,32,52,24,29,32,52,3,7,13
+2023,52,42,44,46,52,42,44,46,52,32,36,40
+2024,52,38,41,42,52,39,42,43,52,33,35,36
+2025,7,6,7,7,7,6,7,7,7,6,7,7

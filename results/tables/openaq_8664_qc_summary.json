@@ -1,0 +1,46 @@
+{
+  "location_id": 8664,
+  "files": 1909,
+  "files_with_no_valid_value": 232,
+  "raw_rows": 44516,
+  "parameters": {
+    "pm25": 44516
+  },
+  "units": {
+    "µg/m³": 44516
+  },
+  "location_names": {
+    "US Diplomatic Post: Lahore-8664": 30648,
+    "Lahore-8664": 13868
+  },
+  "sensor_ids": {
+    "25135": 44516
+  },
+  "coordinates": [
+    {
+      "lat": "31.560078",
+      "lon": "74.33589",
+      "rows": 44516
+    }
+  ],
+  "duplicate_timestamps": {
+    "rows_in": 44516,
+    "duplicate_timestamp_rows": 0,
+    "duplicate_timestamps_identical": 0,
+    "duplicate_timestamps_conflicting": 0,
+    "rows_out": 44516
+  },
+  "hour_label_convention": "hour_ending",
+  "first_timestamp": "2019-05-23 03:00:00+05:00",
+  "last_timestamp": "2025-03-04 17:00:00+05:00",
+  "first_day": "2019-05-23",
+  "last_day": "2025-03-04",
+  "days_in_record": 2113,
+  "days_complete_18of24": 1464,
+  "hours_in_grid": 50703,
+  "hours_valid": 36409,
+  "hours_repeat_prev": 3529,
+  "valid_value_min": 0.0,
+  "valid_value_max": 974.0,
+  "gaps_ge_7_incomplete_days": 18
+}

@@ -1,0 +1,8 @@
+date,airnow_days,airnow_complete_days,airnow_valid_hours,airnow_pct_days_complete,airnow_pct_hours_valid,airnow_keepneg_days,airnow_keepneg_complete_days,airnow_keepneg_valid_hours,airnow_keepneg_pct_days_complete,airnow_keepneg_pct_hours_valid,openaq_days,openaq_complete_days,openaq_valid_hours,openaq_pct_days_complete,openaq_pct_hours_valid
+2019,224,220,5293,98.2,98.5,224,220,5293,98.2,98.5,224,208,5071.0,92.9,94.3
+2020,366,362,8674,98.9,98.7,366,362,8675,98.9,98.8,366,331,8128.0,90.4,92.5
+2021,365,274,6756,75.1,77.1,365,274,6756,75.1,77.1,365,226,5795.0,61.9,66.2
+2022,365,241,5968,66.0,68.1,365,241,5968,66.0,68.1,365,99,2632.0,27.1,30.0
+2023,365,332,7989,91.0,91.2,365,332,7993,91.0,91.2,365,290,6932.0,79.5,79.1
+2024,366,301,7319,82.2,83.3,366,304,7375,83.1,84.0,366,263,6719.0,71.9,76.5
+2025,49,47,1152,95.9,98.0,49,47,1152,95.9,98.0,49,47,1132.0,95.9,96.3

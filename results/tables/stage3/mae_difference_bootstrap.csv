@@ -1,0 +1,15 @@
+model,compared_to,subset,n,mae_diff,ci95_low,ci95_high,share_boot_below_0
+rf_L1_history,history_model,all,133,-0.35,-4.695,2.966,0.624
+rf_L1_history,history_model,smog,52,-2.918,-12.067,5.079,0.771
+rf_L2_plus_era5,rf_L1_history,all,133,-0.387,-2.305,1.138,0.706
+rf_L2_plus_era5,rf_L1_history,smog,52,-1.904,-5.56,2.095,0.798
+rf_L3_plus_fire,rf_L2_plus_era5,all,133,-0.36,-1.553,0.555,0.825
+rf_L3_plus_fire,rf_L2_plus_era5,smog,52,0.944,-0.836,2.796,0.152
+rf_L4_plus_massbalance,rf_L3_plus_fire,all,133,-0.148,-1.016,0.651,0.653
+rf_L4_plus_massbalance,rf_L3_plus_fire,smog,52,-1.154,-3.07,0.284,0.952
+rf_L4_plus_massbalance,history_model,all,133,-1.246,-6.36,2.375,0.802
+rf_L4_plus_massbalance,history_model,smog,52,-5.033,-15.167,4.37,0.866
+rf_L4_plus_massbalance,climatology,all,133,-4.401,-8.315,-1.785,0.999
+rf_L4_plus_massbalance,climatology,smog,52,-4.778,-10.685,0.722,0.956
+rf_L4_plus_massbalance,persistence,all,133,-7.135,-12.852,-2.276,0.998
+rf_L4_plus_massbalance,persistence,smog,52,-13.812,-25.731,-2.498,0.993

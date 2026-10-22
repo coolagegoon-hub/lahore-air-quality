@@ -1,0 +1,4 @@
+scenario,hours_excluded_by_rule,valid_hours,complete_days,days_lost_vs_S0,days_mean_changed_still_complete,max_abs_daily_mean_change_ugm3
+S0_unflagged,0,36409,1464,0,0,0.0
+S6_runs_ge6,133,36276,1459,5,1,1.8194444444444464
+S7_runs_ge7,127,36282,1459,5,0,0.0

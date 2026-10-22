@@ -1,0 +1,12 @@
+{
+  "openaq_last_row_timestamp": "2025-03-04 17:00:00+05:00",
+  "openaq_last_valid_timestamp": "2025-02-18 18:00:00+05:00",
+  "airnow_daily_last_date": "2025-02-17",
+  "airnow_daily_first_date": "2019-05-22",
+  "airnow_daily_days": 1778,
+  "repeat_runs_ge2": 3203,
+  "repeat_runs_ge6": 3,
+  "repeat_runs_ge7": 2,
+  "airnow_hourly_hours_covered": 3456,
+  "runs_fully_inside_airnow_windows": 191
+}

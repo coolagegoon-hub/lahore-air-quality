@@ -1,0 +1,13 @@
+days_missing,smog,n_weeks,n_subsets,mean_abs_error_ugm3,median_abs_pct_error,p95_abs_pct_error,max_abs_pct_error,scenario
+1,False,79,553,2.83,2.97,10.33,27.83,S0_unflagged
+1,True,66,462,7.93,2.83,10.15,22.87,S0_unflagged
+2,False,79,1659,4.44,4.94,16.47,43.05,S0_unflagged
+2,True,66,1386,12.0,4.14,16.26,37.12,S0_unflagged
+1,False,79,553,2.83,2.97,10.33,27.83,S6_runs_ge6
+1,True,66,462,7.93,2.83,10.15,22.87,S6_runs_ge6
+2,False,79,1659,4.44,4.94,16.4,43.05,S6_runs_ge6
+2,True,66,1386,12.0,4.14,16.26,37.12,S6_runs_ge6
+1,False,79,553,2.83,2.97,10.33,27.83,S7_runs_ge7
+1,True,66,462,7.93,2.83,10.15,22.87,S7_runs_ge7
+2,False,79,1659,4.44,4.94,16.47,43.05,S7_runs_ge7
+2,True,66,1386,12.0,4.14,16.26,37.12,S7_runs_ge7
