@@ -51,7 +51,7 @@ def features_for_targets(weekly: pd.DataFrame, target_week_starts) -> pd.DataFra
         # week_end < cutoff  <=>  week_start <= cutoff - 7 days
         m = (starts >= lo.to_datetime64()) & (starts <= (cutoff - pd.Timedelta(days=7)).to_datetime64())
         thu = cutoff + pd.Timedelta(days=3)
-        ang = 2 * np.pi * thu.dayofyear / 365.25
+        ang = 2 * np.pi * thu.day_of_year / 365.25
         row = {"target_week_start": cutoff, "sin1": np.sin(ang), "cos1": np.cos(ang),
                "sin2": np.sin(2 * ang), "cos2": np.cos(2 * ang)}
         if m.any():

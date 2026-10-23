@@ -34,7 +34,7 @@ def issuance_cutoff(target_week_start) -> pd.Timestamp:
     ts = pd.Timestamp(target_week_start)
     if ts.tzinfo is not None:
         raise ValueError("target_week_start must be a tz-naive local (PKT) date")
-    if ts != ts.normalize() or ts.dayofweek != 0:
+    if ts != ts.normalize() or ts.day_of_week != 0:
         raise ValueError(f"target_week_start must be a Monday at 00:00, got {ts}")
     return ts
 
@@ -48,7 +48,7 @@ def _validate_weekly(weekly: pd.DataFrame) -> pd.DataFrame:
     w["week_end"] = pd.to_datetime(w["week_end"])
     if w["week_start"].duplicated().any():
         raise ValueError("weekly frame has duplicate week_start values")
-    if (w["week_start"].dt.dayofweek != 0).any():
+    if (w["week_start"].dt.day_of_week != 0).any():
         raise ValueError("week_start values must all be Mondays")
     if (w["week_end"] - w["week_start"] != pd.Timedelta(days=DAYS_PER_WEEK - 1)).any():
         raise ValueError("week_end must equal week_start + 6 days")

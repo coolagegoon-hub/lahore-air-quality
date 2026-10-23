@@ -61,7 +61,7 @@ def previous_week_features(b: pd.DataFrame, target_week_starts) -> pd.DataFrame:
     All features are NaN unless all 7 × 24 hours are present (no imputation)."""
     rows = []
     for t in pd.DatetimeIndex(target_week_starts):
-        if t.dayofweek != 0 or t != t.normalize():
+        if t.day_of_week != 0 or t != t.normalize():
             raise ValueError(f"target week must start on a Monday 00:00, got {t}")
         w = b[(b["day"] >= t - pd.Timedelta(days=7)) & (b["day"] < t)]
         row = {"target_week_start": t, "mb_hours": len(w)}

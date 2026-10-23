@@ -1,0 +1,8 @@
+{
+  "source_url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_boundary_lines_land.geojson",
+  "dataset": "Natural Earth 1:10m Admin 0 boundary lines (land)",
+  "licence": "Public domain (Natural Earth)",
+  "downloaded_utc": "2026-10-21T07:53:00+00:00",
+  "size_bytes": 2284669,
+  "sha256": "74d9c16229c095fde65943a9919e337682f044bcebccb120764f38edf3b70f4a"
+}

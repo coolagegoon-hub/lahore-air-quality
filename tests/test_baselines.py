@@ -10,7 +10,7 @@ from src import weekly_targets as wt
 
 def _weekly(start, n, means=None, eligible=True):
     starts = pd.date_range(start, periods=n, freq="7D")
-    assert (starts.dayofweek == 0).all()
+    assert (starts.day_of_week == 0).all()
     means = np.arange(n, dtype=float) if means is None else np.asarray(means, dtype=float)
     elig = np.full(n, eligible) if np.isscalar(eligible) else np.asarray(eligible, dtype=bool)
     return pd.DataFrame(

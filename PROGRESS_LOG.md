@@ -359,3 +359,22 @@
 - Optional analyses: trajectory-weighted fire exposure, H1–H3 association tests, four-season scheme, embargo options.
 - Licence choice and whether to make the repository public.
 - Paper (step 9, brainstorming).
+
+## 2026-10-23 — Repository made runnable from GitHub alone
+
+### Found (fresh clone from GitHub, new environment)
+- Install and tests worked (125 passed), but `pip install -r requirements.txt` picked pandas 3.1.0, which changes a few results in the 14th decimal place and warns about renamed date functions.
+- `src.stage2_weekly` rebuilt the hourly series from the AirNow archive, which needs the ~51 GB download, although its input is already committed in `data/processed/`.
+- The HYSPLIT trajectories (needed for L5 and SHAP) and the Natural Earth borders (figure 3) existed only on this Mac, and the README pointed to a HYSPLIT README that was not in the repository.
+
+### Changed
+- `src.stage2_weekly` now reads the committed hourly file through the new `airnow_hourly_series.load_saved_grid()`. Checked: it is identical (exact comparison) to the archive rebuild.
+- Added to the repository: `data/raw/hysplit/` (endpoints CSV, README with settings, met manifest, scripts, feasibility notes; the zip copy is left out) and `data/raw/natural_earth/` (public domain). `.gitignore` has exceptions for these two folders only.
+- Renamed `dayofweek` → `day_of_week` and `dayofyear` → `day_of_year` (deprecated in pandas 3.1).
+- PDF figures no longer store a creation date, so reruns write byte-identical files. Figure 5's PDF was redrawn from the saved SHAP values: the summary matches `shap_group_summary.csv` and the PNG is byte-identical to the previous one.
+- README: install from `requirements-lock.txt`; a table of which steps need a raw download (their outputs are committed); what is included in `data/raw/`.
+
+### Checked
+- Full local rerun of all 12 pipeline steps with the locked versions: every table, processed data file and PNG identical to the committed ones; the PDFs differed only in the creation date. Wall-clock times (the Mac may have slept during some): main model ~19 min, follow-up models ~22 min, Stage 4 ~4.3 h, SHAP ~1.2 h, data figures ~11 min.
+- Fresh clone of this commit in a new environment: `pip install -r requirements-lock.txt` gave the locked versions; 125 tests passed; `stage2_weekly`, `history_model` and `main_model` ran with no download (main model 161 s) and reproduced the committed files exactly; the HYSPLIT endpoints (2,161 trajectories) and borders load. The clone's rerun of the follow-up models, Stage 4 and SHAP was stopped at the user's request; those steps were checked by the full local rerun above.
+- Tests: `pytest -q tests` → 125 passed.

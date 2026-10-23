@@ -59,46 +59,60 @@ Analysis designs for Stages 3b, 4 and 5 were written and committed **before** th
 
 ## How to run
 
-Requires Python 3 (developed with 3.12). Exact package versions are in `requirements-lock.txt`.
+Requires Python 3.12 (used for all results). To reproduce the committed results exactly, install the exact package versions from `requirements-lock.txt`:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-lock.txt
 ```
 
-Raw data are **not** in this repository (about 350 MB; `data/raw/` is git-ignored). They are re-downloaded with:
-- `src/airnow_bulk.py` (AirNow);
-- `src/download_era5.py` (needs a free Copernicus CDS key: `CDSAPI_URL` and `CDSAPI_KEY` in a local `.env`);
-- `src/download_firms.py` (needs a free NASA `FIRMS_MAP_KEY` in `.env`).
+`requirements.txt` lists the same packages without versions. Newer versions should also run, but they can change results in the last decimal places.
 
-The HYSPLIT trajectories were produced on a separate Windows machine; see `data/raw/hysplit/README.md` there for the exact settings. **Never commit `.env`.**
+### What needs a download
 
-Pipeline order (each step writes to `data/processed/` and `results/`):
+Most steps run from files already in this repository. Four steps need large raw downloads, but their outputs are committed, so you can skip them:
+
+| Step | Needs | Committed output |
+|---|---|---|
+| `airnow_hourly_series` | The AirNow hourly archive: about 51 GB transferred, of which only the Lahore lines are kept (`src/airnow_bulk.py`) | `data/processed/airnow_586PK3010003_*.csv` |
+| `era5_features`, `mass_balance_features` | ERA5 time series (`src/download_era5.py`; needs a free Copernicus CDS key: `CDSAPI_URL` and `CDSAPI_KEY` in a local `.env`) | `data/processed/era5_*.csv`, `mass_balance_*.csv` |
+| `firms_features` | FIRMS fire archive, about 150 MB (`src/download_firms.py`; needs a free NASA `FIRMS_MAP_KEY` in `.env`) | `data/processed/firms_*.csv` |
+| `figures_data` | The ERA5 and FIRMS raw files above | `results/figures/fig1`–`fig4` |
+
+Two small raw inputs are included in `data/raw/`:
+- `hysplit/`: the HYSPLIT trajectory endpoints (2,161 daily trajectories), the scripts that made them on a separate Windows machine, and a README with the exact settings. The 8.7 GB of meteorology files are not included; `manifest.csv` lists each one with its NOAA checksum.
+- `natural_earth/`: country borders for figure 3 (public domain).
+
+**Never commit `.env`.**
+
+### Pipeline order
+
+Each step writes to `data/processed/` and `results/`:
 
 ```bash
-python -m src.airnow_hourly_series      # AirNow hourly series, 18/24 daily rule
+python -m src.airnow_hourly_series      # AirNow hourly series, 18/24 daily rule (needs the AirNow download)
 python -m src.stage2_weekly             # run rule, weekly target, persistence/climatology
 python -m src.history_model             # Ridge PM2.5-history baseline
-python -m src.era5_features             # ERA5 previous-week features
-python -m src.firms_features            # FIRMS previous-week features
-python -m src.mass_balance_features     # one-box mass-balance features
+python -m src.era5_features             # ERA5 previous-week features (needs ERA5)
+python -m src.firms_features            # FIRMS previous-week features (needs FIRMS)
+python -m src.mass_balance_features     # one-box mass-balance features (needs ERA5)
 python -m src.main_model                # Random Forest layers L1–L4
 python -m src.followup_models           # pre-declared follow-up models (Stage 3b)
 python -m src.stage4_trajectory_model   # HYSPLIT layer L5 (in-fold clustering)
 python -m src.shap_analysis             # SHAP (Stage 5)
-python -m src.figures_data              # figures 1–4
+python -m src.figures_data              # figures 1–4 (needs ERA5 and FIRMS)
 python -m src.figures_results           # figures 6–9
 python -m pytest -q tests               # 125 tests, synthetic data only
 ```
 
-All outputs are deterministic. A full rerun reproduces the committed tables exactly.
+All outputs are deterministic. With the versions in `requirements-lock.txt`, rerunning the steps that need no download reproduces the committed files exactly.
 
 ## Folder structure
 
 ```
 data/
-  raw/          Downloaded data (git-ignored; never edited by hand)
+  raw/          Raw inputs, never edited by hand (git-ignored except hysplit/ and natural_earth/)
   processed/    Cleaned data and features produced by code
 src/            Pipeline modules (see "How to run")
 tests/          pytest tests (synthetic data only)

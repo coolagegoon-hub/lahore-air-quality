@@ -108,7 +108,7 @@ def previous_week_features(daily: pd.DataFrame, target_week_starts, prefix: str 
     rows = []
     first, last = daily.index.min(), daily.index.max()
     for t in pd.DatetimeIndex(target_week_starts):
-        if t.dayofweek != 0 or t != t.normalize():
+        if t.day_of_week != 0 or t != t.normalize():
             raise ValueError(f"target week must start on a Monday 00:00, got {t}")
         lo, hi = t - pd.Timedelta(days=7), t - pd.Timedelta(days=1)
         row = {"target_week_start": t}

@@ -35,6 +35,7 @@ AQSID = "586PK3010003"
 FIRST_LOCAL_DAY = "2019-05-22"
 LAST_LOCAL_DAY = "2025-02-18"
 OUT_DIR = PROJECT_ROOT / "results" / "tables" / "airnow_rebuild"
+HOURLY_CSV = PROJECT_ROOT / "data" / "processed" / f"airnow_{AQSID}_hourly.csv"
 NEGATIVE_POLICIES = ("invalid", "keep_ge_minus5")
 
 
@@ -110,6 +111,16 @@ def build(negative_policy: str = "invalid", first_day: str = FIRST_LOCAL_DAY, la
     return grid, daily, info
 
 
+def load_saved_grid(path: Path = HOURLY_CSV) -> pd.DataFrame:
+    """Read back the hourly grid that main() saves (negatives invalid), identical to build("invalid")[0].
+    Lets later stages run from data/processed/ without the ~51 GB archive download."""
+    g = pd.read_csv(path, float_precision="round_trip",
+                    dtype={"valid": bool, "present_in_source": bool, "repeat_prev": bool, "repeat_run_length": "int64"})
+    ts = pd.to_datetime(g.pop("timestamp")).dt.tz_convert(qc.TZ).dt.as_unit("us")
+    g.index = pd.DatetimeIndex(ts, name="timestamp", freq="h")
+    return g
+
+
 # ---------------------------------------------------------------- comparisons
 
 def compare_with_airnow_daily(daily: pd.DataFrame, airnow_daily: pd.DataFrame) -> pd.DataFrame:
@@ -179,7 +190,7 @@ def main() -> None:
 
     grid, daily, info = build("invalid")
     grid_k, daily_k, info_k = build("keep_ge_minus5")
-    grid.to_csv(PROJECT_ROOT / "data" / "processed" / f"airnow_{AQSID}_hourly.csv")
+    grid.to_csv(HOURLY_CSV)
     daily.to_csv(PROJECT_ROOT / "data" / "processed" / f"airnow_{AQSID}_daily_18of24.csv")
 
     # OpenAQ 8664 over the same local days (Stage 1B pipeline, unchanged)

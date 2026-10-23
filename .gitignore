@@ -25,6 +25,10 @@ env/
 # Raw data (keep folder via .gitkeep)
 data/raw/*
 !data/raw/.gitkeep
+# Except small raw inputs that cannot be re-downloaded easily: the project's own HYSPLIT
+# trajectories (made on a separate laptop) and the public-domain Natural Earth borders
+!data/raw/hysplit/
+!data/raw/natural_earth/
 
 # Large data files
 *.nc

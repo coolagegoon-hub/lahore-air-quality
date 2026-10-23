@@ -160,7 +160,7 @@ def summarize_daily_validity(days: pd.DataFrame) -> dict:
 
 def week_start_of(dates: pd.Series) -> pd.Series:
     """Monday (00:00, local date) of the Monday–Sunday week containing each date."""
-    return dates - pd.to_timedelta(dates.dt.dayofweek, unit="D")
+    return dates - pd.to_timedelta(dates.dt.day_of_week, unit="D")
 
 
 def build_weekly_targets(
@@ -205,8 +205,8 @@ def build_weekly_targets(
 
     first, last = days["date"].iloc[0], days["date"].iloc[-1]
     calendar = pd.date_range(
-        first - pd.Timedelta(days=first.dayofweek),
-        last + pd.Timedelta(days=6 - last.dayofweek),
+        first - pd.Timedelta(days=first.day_of_week),
+        last + pd.Timedelta(days=6 - last.day_of_week),
         freq="D",
     )
     full = days.set_index("date").reindex(calendar)  # no fill: absent days stay NaN

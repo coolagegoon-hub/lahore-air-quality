@@ -208,5 +208,5 @@ def test_partial_weeks_at_record_edges():
     assert weekly["days_outside_record"].tolist() == [2, 0, 5]
     assert weekly["eligible_days"].tolist() == [5, 7, 2]
     assert weekly["eligible"].tolist() == [True, True, False]
-    assert (weekly["week_start"].dt.dayofweek == 0).all()
-    assert (weekly["week_end"].dt.dayofweek == 6).all()
+    assert (weekly["week_start"].dt.day_of_week == 0).all()
+    assert (weekly["week_end"].dt.day_of_week == 6).all()

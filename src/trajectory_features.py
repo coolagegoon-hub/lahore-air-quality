@@ -79,7 +79,7 @@ def shape_columns() -> list[str]:
 
 def week_start(dates: pd.Series | pd.DatetimeIndex) -> pd.DatetimeIndex:
     dates = pd.DatetimeIndex(dates)
-    return dates - pd.to_timedelta(dates.dayofweek, unit="D")
+    return dates - pd.to_timedelta(dates.day_of_week, unit="D")
 
 
 def weekly_continuous(traj: pd.DataFrame) -> pd.DataFrame:

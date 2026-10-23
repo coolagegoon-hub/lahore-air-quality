@@ -62,12 +62,16 @@ def style() -> None:
     })
 
 
+# no creation date in PDFs, so a rerun writes byte-identical files
+NO_DATE = {"pdf": {"CreationDate": None}}
+
+
 def save(fig, name: str) -> list[Path]:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     paths = []
     for ext in ("png", "pdf"):
         p = FIG_DIR / f"{name}.{ext}"
-        fig.savefig(p, dpi=300, bbox_inches="tight")
+        fig.savefig(p, dpi=300, bbox_inches="tight", metadata=NO_DATE.get(ext))
         paths.append(p)
     plt.close(fig)
     return paths
@@ -243,7 +247,7 @@ def fig3_fire_map(kept: pd.DataFrame):
 
 def fig4_availability(daily: pd.DataFrame):
     d = daily.copy()
-    d["year"], d["doy"] = d.index.year, d.index.dayofyear
+    d["year"], d["doy"] = d.index.year, d.index.day_of_year
     years = sorted(d["year"].unique())
     grid = np.full((len(years), 366), np.nan)
     for i, y in enumerate(years):
@@ -258,7 +262,7 @@ def fig4_availability(daily: pd.DataFrame):
     ax.imshow(np.ma.masked_invalid(cats), aspect="auto", cmap=cmap, norm=BoundaryNorm([-0.5, 0.5, 1.5, 2.5, 3.5], 4),
               interpolation="nearest", extent=(0.5, 366.5, len(years) - 0.5, -0.5))
     ax.set_yticks(range(len(years)), years)
-    starts = pd.date_range("2021-01-01", periods=12, freq="MS").dayofyear
+    starts = pd.date_range("2021-01-01", periods=12, freq="MS").day_of_year
     ax.set_xticks(starts, MONTHS)
     ax.grid(False)
     for i in range(len(years) + 1):

@@ -136,7 +136,7 @@ def plot_groups(summary: pd.DataFrame, path_stem: Path) -> list[Path]:
     paths = []
     for ext in ("png", "pdf"):
         p = path_stem.with_suffix(f".{ext}")
-        fig.savefig(p, dpi=300, bbox_inches="tight")
+        fig.savefig(p, dpi=300, bbox_inches="tight", metadata=fd.NO_DATE.get(ext))
         paths.append(p)
     plt.close(fig)
     return paths

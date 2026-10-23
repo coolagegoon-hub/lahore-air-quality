@@ -1,7 +1,8 @@
 """Stage 2: final daily and weekly PM2.5 target series, and reference-baseline scores.
 
 Decisions applied (CLAUDE.md, decided 2026-10-18 / 2026-10-20):
-- Primary series: AirNow rebuild, AQS 586PK3010003 (src.airnow_hourly_series), negatives invalid.
+- Primary series: AirNow rebuild, AQS 586PK3010003 (src.airnow_hourly_series), negatives invalid,
+  read from its saved hourly file data/processed/airnow_586PK3010003_hourly.csv.
 - Repeated values: every hour of a run of >= RUN_RULE_HOURS (7) consecutive identical valid
   values is invalid (src.stage1c_analysis.exclude_runs), applied before the daily rule.
 - Daily: >= 18 of 24 valid hours (src.pm25_qc).
@@ -90,7 +91,7 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     pd.set_option("display.width", 200)
 
-    grid, _, info = ahs.build("invalid")
+    grid = ahs.load_saved_grid()  # saved by src.airnow_hourly_series (negatives invalid); no archive download
     daily, excluded = final_daily(grid)
     weekly = weekly_from_daily(daily)
 
@@ -113,7 +114,7 @@ def main() -> None:
     elig = full[full["eligible"]]
     summary = {
         "source": "AirNow rebuild AQS 586PK3010003 (preliminary data)",
-        "negative_policy": info["negative_policy"],
+        "negative_policy": "invalid",
         "run_rule_hours": RUN_RULE_HOURS, "hours_excluded_by_run_rule": excluded,
         "min_valid_days": MIN_VALID_DAYS,
         "daily_days": len(daily), "daily_complete": int(daily["complete"].sum()),
