@@ -48,14 +48,16 @@ Analysis designs for Stages 3b, 4 and 5 were written and committed **before** th
 
 ## Data sources and credits
 
-| Data | Source | Notes |
+Each source keeps its own terms. This project's licences (below) do not cover these data.
+
+| Data | Source | Terms and required credit |
 |---|---|---|
-| PM2.5 | U.S. Department of State monitor at the U.S. Consulate Lahore, via the **EPA AirNow** file archive | **Preliminary, not validated** (AirNow Data Exchange Guidelines). Credit the U.S. Department of State and the EPA AirNow program. |
-| PM2.5 (comparison only) | OpenAQ location 8664 | Used only to diagnose data issues, never as model input |
-| Weather | **ERA5** hourly time series on single levels, Copernicus Climate Change Service (C3S) Climate Data Store | Grid point 31.50 N, 74.25 E |
-| Fires | **NASA FIRMS** VIIRS (Suomi NPP) standard-processing active fires | NOAA-20 used only as a cross-check |
-| Trajectories | **NOAA ARL HYSPLIT** v5.4.2 driven by **NCEP/NCAR Reanalysis** 2.5° | 72 h back-trajectories, 06 UTC, 500 m AGL; coarse grid, so synoptic scale |
-| Map borders | **Natural Earth** 1:10m (public domain) | Figure 3 only |
+| PM2.5 | U.S. Department of State monitor at the U.S. Consulate Lahore (AQS 586PK3010003), via the **EPA AirNow** file archive | [AirNow Data Exchange Guidelines](https://docs.airnowapi.org/docs/DataUseGuidelines.pdf) (August 2025). The data are **preliminary** (not fully verified or validated), and every analysis, display or product must say so. Credit the U.S. Department of State and the EPA AirNow program first. Publications that rely on the data must be made known to the data owner and the AirNow program. |
+| PM2.5 (comparison only) | OpenAQ location 8664 (the same monitor, via AirNow) | [OpenAQ terms of use](https://docs.openaq.org/about/terms): credit OpenAQ and the original source. Used only to diagnose data issues, never as model input. |
+| Weather | **ERA5** hourly time-series data on single levels, Copernicus Climate Change Service (C3S) Climate Data Store, DOI [10.24381/1cf1ad76](https://doi.org/10.24381/1cf1ad76); grid point 31.50 N, 74.25 E | CC BY 4.0. Contains modified Copernicus Climate Change Service information (2026). Neither the European Commission nor ECMWF is responsible for any use that may be made of the Copernicus information or data it contains. |
+| Fires | **NASA FIRMS** VIIRS (Suomi NPP) 375 m standard-processing active fires; NOAA-20 used only as a cross-check | NASA open data. NASA asks for this acknowledgment: "We acknowledge the use of data and/or imagery from NASA's Fire Information for Resource Management System (FIRMS) (https://earthdata.nasa.gov/firms), part of NASA's Land, Atmosphere Near real-time Capability for Earth observations (LANCE) and NASA's Earth Science Data and Information System (ESDIS)." VIIRS 375 m algorithm: Schroeder et al. (2014), doi:10.1016/j.rse.2013.12.008. |
+| Trajectories | Computed for this project with **NOAA ARL HYSPLIT** v5.4.2 (Stein et al. 2015, doi:10.1175/BAMS-D-14-00110.1), driven by **NCEP/NCAR Reanalysis** 2.5° (Kalnay et al. 1996). 72 h back-trajectories, 06 UTC, 500 m AGL; coarse grid, so synoptic scale | The trajectories are this project's own output (CC BY 4.0, below). Cite HYSPLIT and the reanalysis in publications. |
+| Map borders | **Natural Earth** 1:10m, figure 3 only | Public domain; no permission needed. "Made with Natural Earth." |
 
 ## How to run
 
@@ -138,4 +140,9 @@ PROGRESS_LOG.md Dated record of all work and decisions
 
 ## Licence
 
-No licence has been chosen yet, so all rights are reserved by default. Choose one before making the repository public.
+Copyright © 2026 Sardar Zayaan Akhtar Nakai.
+
+- **Code** (`src/`, `tests/`, `data/raw/hysplit/scripts/`): **MIT licence**, see [LICENSE](LICENSE).
+- **Everything else made for this project** (figures, reports and tables in `results/`, the documentation, and the project's own derived data, including the HYSPLIT trajectories): **Creative Commons Attribution 4.0 International (CC BY 4.0)**, see [LICENSE-CC-BY-4.0.txt](LICENSE-CC-BY-4.0.txt).
+- Both licences allow reuse, including modified versions, as long as the author is credited.
+- **Third-party data are not covered.** Files in `data/processed/` and `results/` built from them stay subject to the terms under "Data sources and credits" above. In particular, AirNow-based data must always be labelled preliminary. The Natural Earth borders are public domain.

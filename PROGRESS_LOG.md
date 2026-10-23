@@ -378,3 +378,20 @@
 - Full local rerun of all 12 pipeline steps with the locked versions: every table, processed data file and PNG identical to the committed ones; the PDFs differed only in the creation date. Wall-clock times (the Mac may have slept during some): main model ~19 min, follow-up models ~22 min, Stage 4 ~4.3 h, SHAP ~1.2 h, data figures ~11 min.
 - Fresh clone of this commit in a new environment: `pip install -r requirements-lock.txt` gave the locked versions; 125 tests passed; `stage2_weekly`, `history_model` and `main_model` ran with no download (main model 161 s) and reproduced the committed files exactly; the HYSPLIT endpoints (2,161 trajectories) and borders load. The clone's rerun of the follow-up models, Stage 4 and SHAP was stopped at the user's request; those steps were checked by the full local rerun above.
 - Tests: `pytest -q tests` → 125 passed.
+
+## 2026-10-23 — Licences and data terms
+
+### Completed
+- Licences chosen by the user: **MIT** for code (`LICENSE`) and **CC BY 4.0** for everything else made for the project (`LICENSE-CC-BY-4.0.txt`, official text from creativecommons.org). Copyright © 2026 Sardar Zayaan Akhtar Nakai. Third-party data are excluded.
+- README "Data sources and credits" now gives each provider's terms and required credit, checked against the providers' own pages on 2026-10-23:
+  - AirNow Data Exchange Guidelines (PDF, last updated August 2025);
+  - OpenAQ terms of use;
+  - the ERA5 time-series catalogue entry (DOI 10.24381/1cf1ad76, licence CC-BY-4.0);
+  - the NASA Earthdata FIRMS page (acknowledgment sentence);
+  - the NOAA HYSPLIT page (Stein et al. 2015);
+  - Natural Earth terms of use (public domain).
+- Finding: the AirNow guidelines say publications that rely on AirNow data "must be made known" to the data owner and the AirNow program, and they include a form to sign and email to dmc@airnowtech.org agreeing to the guidelines. This is a notification, not a permission request. They also ask that validated data be used whenever possible (none exists for this monitor; see CLAUDE.md).
+
+### Open
+- Notify AirNow (and the U.S. Department of State as data owner) about the project before publishing; the user decides whether to also return the guidelines form.
+- Whether to make the repository public.
