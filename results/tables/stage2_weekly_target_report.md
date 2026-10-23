@@ -1,5 +1,7 @@
 # Stage 2 — Weekly PM2.5 Target and Reference Baselines
 
+> **Status update (2026-10-23):** §4 item 3 is done (the PM2.5-history model, §6 of this report). Item 4 is done: ERA5 and FIRMS were downloaded and their features used in Stages 3–5. Items 1–2 (climatology settings, persistence maximum age) are unchanged, as declared. Numbers in this report are unchanged.
+
 - **Date:** 2026-10-20
 - **Code:** `src/stage2_weekly.py` (new), which uses `src/airnow_hourly_series.py`, `src/stage1c_analysis.py`, `src/pm25_qc.py`, `src/weekly_targets.py` and `src/baselines.py` unchanged. Tests: `tests/test_stage2_weekly.py` (5 new).
 - **Reproduce** (offline):

@@ -8,7 +8,7 @@ Conventions (see CLAUDE.md data rules and results/tables/forecasting_design.md):
 - Daily eligibility: a day is eligible only if it has >= MIN_VALID_HOURS (18 of 24) valid
   hours AND its daily mean is a finite, non-negative number. This is recomputed from the hour
   count; any upstream "complete" flag is ignored on purpose.
-- Week boundary: Monday–Sunday on local dates. **PROVISIONAL ASSUMPTION awaiting review.**
+- Week boundary: Monday–Sunday on local dates (decided 2026-10-20; see CLAUDE.md).
   Monday–Sunday weeks coincide with ISO-8601 weeks.
 - Missing data: never imputed. Calendar days absent from the input are counted as missing
   (the record is reindexed to the full calendar range, values are not filled). Invalid days
@@ -16,8 +16,8 @@ Conventions (see CLAUDE.md data rules and results/tables/forecasting_design.md):
 - Weekly mean: the mean of the eligible daily means in the week. When a week has fewer than
   seven eligible days this is the mean of the observed days only, which is NOT necessarily
   the true seven-day mean; such weeks are flagged (complete_7_of_7 is False).
-- The weekly completeness threshold (min_valid_days) has NOT been chosen; callers must pass
-  it explicitly (5, 6 or 7).
+- The weekly completeness threshold (min_valid_days) must be passed explicitly (5, 6 or 7).
+  The project uses 6 (decided 2026-10-20; passed by src.stage2_weekly).
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ MIN_VALID_HOURS = 18  # per CLAUDE.md: >= 18 of 24 valid hourly observations
 HOURS_PER_DAY = 24
 DAYS_PER_WEEK = 7
 ALLOWED_MIN_VALID_DAYS = (5, 6, 7)
-WEEK_START_DAY = "Monday"  # provisional; awaiting review
+WEEK_START_DAY = "Monday"  # decided 2026-10-20
 
 # Defaults match data/processed/openaq_8664_daily.csv
 DEFAULT_DATE_COL = "date"

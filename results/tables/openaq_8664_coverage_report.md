@@ -1,5 +1,7 @@
 # Stage 1B — OpenAQ Location 8664 (US Diplomatic Post: Lahore): Download, Coverage and Repeated-Value QC
 
+> **Status update (2026-10-23):** **Superseded for modelling.** OpenAQ 8664 is a comparison source only; see `airnow_rebuild_report.md`. The §6 decisions have been made: runs of ≥ 7 identical hours invalid; weekly target needs ≥ 6 of 7 valid days; the hour-ending convention was verified against AirNow's own daily values.
+
 - **Run date:** 2026-10-18
 - **Code:** `src/download_openaq.py`, `src/pm25_qc.py`, `src/run_openaq_coverage.py`; tests in `tests/test_pm25_qc.py`
 - **Reproduce:**

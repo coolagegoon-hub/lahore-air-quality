@@ -1,5 +1,7 @@
 # Forecasting Design — Weekly PM2.5 Targets and Baselines (DRAFT, awaiting review)
 
+> **Status update (2026-10-23):** Decided: Monday–Sunday PKT weeks and the ≥ 6/7 threshold (2026-10-20), with the AirNow rebuild as primary series. §5.3 is now implemented: the PM2.5-history model (`src/history_model.py`) and walk-forward scoring (`src/stage2_weekly.py`, `src/main_model.py`). Data latency remains a documented assumption (zero embargo); embargo options are still open.
+
 Status: design and code only. **No real data has been processed with this code, and no forecast results exist.** The tests in `tests/test_weekly_targets.py` and `tests/test_baselines.py` use synthetic data only; they check that the code behaves as specified, not anything about Lahore air quality.
 
 Code: `src/weekly_targets.py` (weekly target builder), `src/baselines.py` (persistence and seasonal climatology).

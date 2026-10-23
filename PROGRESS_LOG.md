@@ -343,3 +343,19 @@
 - Each figure was rendered and inspected; legend and label overlaps in fig7/fig9 were fixed.
 - Software: Matplotlib (figures are code, so they can be regenerated after any analysis change).
 - Tests: `pytest -q tests` → 125 passed.
+
+## 2026-10-23 — Documentation brought up to date
+
+### Completed
+- README rewritten to the current state: purpose, status table, main results, data sources and credits, how to run (pipeline order), folder structure, limitations, and a licence note (none chosen yet).
+- Added dated status notes to the superseded or older reports (source audit, OpenAQ coverage report, Stage 1C decisions, forecasting design, AirNow rebuild, Stage 2, Stage 3). Their original text is kept as the historical record.
+- Code comments updated: the Monday–Sunday week and ≥ 6/7 threshold are now marked as decided (2026-10-20), not provisional; `src/main_model.py` points to the L5 trajectory layer. No logic changed.
+- CLAUDE.md data sources now name the FIRMS product (VIIRS Suomi NPP only) and the HYSPLIT configuration (v5.4.2, NCEP/NCAR Reanalysis 2.5°, 72 h, 06 UTC, 500 m; in-fold clustering).
+- Added `requirements-lock.txt` (exact versions from `pip freeze`).
+- Email to AirNow (dmc@airnowtech.org) asking about the causes of the long data outages was sent by the user on 2026-10-23; no reply yet.
+- Tests: `pytest -q tests` → 125 passed.
+
+### Open
+- Optional analyses: trajectory-weighted fire exposure, H1–H3 association tests, four-season scheme, embargo options.
+- Licence choice and whether to make the repository public.
+- Paper (step 9, brainstorming).

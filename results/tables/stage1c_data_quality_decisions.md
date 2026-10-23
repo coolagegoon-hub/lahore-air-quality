@@ -1,5 +1,7 @@
 # Stage 1C — Data-Quality Decisions for Lahore PM2.5 (OpenAQ 8664 / AirNow 586PK3010003)
 
+> **Status update (2026-10-23):** All §7 decisions are made: (1) primary source = AirNow archive rebuild (option b); (2) run rule = runs of ≥ 7 h invalid; (3) weekly threshold = ≥ 6 of 7 valid days; (4) OpenAQ is used only for diagnostics, never as model input; (5) location 6506 remains unresolved and is not used. An email asking AirNow about the causes of the long outages was sent 2026-10-23; no reply yet.
+
 - **Date:** 2026-10-18
 - **Code:**
   - `src/stage1c_analysis.py` (new)

@@ -1,5 +1,7 @@
 # Stage 3 — Main Model (Random Forest) Built Up in Input Layers
 
+> **Status update (2026-10-23):** The HYSPLIT layer L5 has since been added (`stage4_trajectory_report.md`), and SHAP is done (`stage5_shap_report.md`). The results in this report are unchanged.
+
 - **Date:** 2026-10-21
 - **Code:** `src/main_model.py`; tests `tests/test_main_model.py` (4).
 - **Reproduce:**

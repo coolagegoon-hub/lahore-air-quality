@@ -1,5 +1,7 @@
 # Stage 1A — Historical PM2.5 Source Audit for Lahore
 
+> **Status update (2026-10-23):** **Superseded.** Stage 1C found timestamp misalignment and artefacts in OpenAQ 8664. It also found the AirNow file archive (files.airnowtech.org), which this audit had missed. The primary PM2.5 series is now the AirNow rebuild (`airnow_rebuild_report.md`); OpenAQ 8664 is used only for comparison.
+
 - **Audit date:** 2026-10-18
 - **Scope:** Verify which publicly accessible historical PM2.5 sources can support the study. No full dataset was downloaded; no model was built; no packages were installed.
 - **Method:** Direct HTTP requests (`curl`), the public OpenAQ Explorer web app (viewed in a browser), web pages read via fetch, and inspection of a small number of single-day/single-month sample files. Sample files were stored in a temporary scratch directory outside the project and are **not** part of this repository.

@@ -64,7 +64,8 @@ Raw data in `data/raw/` is never edited by hand; all processing is done by code 
 **Data sources (decided 2026-10-20):**
 - **PM2.5:** historical PM2.5 is the reference baseline. Always prefer locally measured or validated PM2.5 observations whenever they are available. The current series is a local reference-grade monitor (U.S. Consulate Lahore), but AirNow labels it preliminary, not validated. If a validated or QA'd local record becomes available, evaluate it as a replacement.
 - **Weather:** ERA5 (Copernicus Climate Data Store).
-- **Fire detections:** NASA FIRMS.
+- **Fire detections:** NASA FIRMS (VIIRS Suomi NPP standard processing; one sensor for the whole record; MODIS and VIIRS are never mixed).
+- **Trajectories:** NOAA ARL HYSPLIT v5.4.2 back-trajectories driven by NCEP/NCAR Reanalysis 2.5° (72 h, 06 UTC, 500 m AGL). Clustering is fitted only inside each walk-forward training window.
 
 **Repeated-value rule (decided 2026-10-20):** every hour of a run of ≥ 7 consecutive identical valid hourly values is invalid. This is applied before the 18/24 daily rule.
 

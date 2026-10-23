@@ -1,8 +1,8 @@
 """Stage 3: main machine-learning model (Random Forest), walk-forward, built up in input layers.
 
 Research question (CLAUDE.md): do ERA5 meteorology, NASA FIRMS fire activity and one-box
-mass-balance features improve weekly PM2.5 forecasts beyond historical PM2.5? (HYSPLIT will be
-added as a further layer when its data arrive.)
+mass-balance features improve weekly PM2.5 forecasts beyond historical PM2.5? (HYSPLIT trajectories
+are added as layer L5 in src.stage4_trajectory_model.)
 
 Design (fixed before any results were seen; nothing tuned on the evaluation period):
 - Target: weekly mean PM2.5 (µg/m³), eligible weeks only (>= 6 of 7 valid days), from

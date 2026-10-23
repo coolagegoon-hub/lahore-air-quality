@@ -2,7 +2,7 @@
 
 Forecast setup (see results/tables/forecasting_design.md):
 - Target: weekly mean PM2.5 (µg/m³) of week T, Monday–Sunday on Lahore local dates (PKT,
-  UTC+05:00). The Monday–Sunday boundary is a provisional assumption awaiting review.
+  UTC+05:00). Monday–Sunday boundary decided 2026-10-20 (CLAUDE.md).
 - Issuance cutoff: Monday 00:00 local time at the start of week T. Only weeks that ended
   before the cutoff (week_end < cutoff, i.e. week_start <= T − 7 days) may be used. Every
   function filters to that set itself, so passing a frame that contains the target week or
