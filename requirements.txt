@@ -8,3 +8,4 @@ pytest
 python-dotenv
 certifi
 cdsapi
+shap
