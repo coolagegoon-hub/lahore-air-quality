@@ -315,3 +315,19 @@
 
 ### Not completed
 - Trajectory-weighted fire exposure; H1–H3; four-season scheme; embargo options; descriptive clustering; SHAP; results figures.
+
+## 2026-10-23 — Stage 5: SHAP analysis (layer-5 model)
+
+### Completed
+- Installed `shap` 0.54.1 (added to requirements.txt). Pre-declared the SHAP design before computing (commit 5e8ef42).
+- Added `src/shap_analysis.py` and `tests/test_shap_analysis.py` (4 tests).
+- Fold-by-fold out-of-sample SHAP for 228 forecasts, with checks: reproduction error vs Stage 4 4.9e-7; additivity error 2.6e-13.
+- Reliance by group, 133 common weeks (mean |SHAP|, share of total):
+  - PM2.5 history 27.9 (37.6%), calendar 19.2 (25.8%), ERA5 11.6 (15.6%), mass balance 7.0 (9.4%), fire 6.0 (8.0%), trajectories 2.7 (3.6%).
+  - Oct–Jan: trajectories 4.6 (4.7%).
+- Top non-history inputs: low-ventilation hours, boundary-layer height, surface pressure.
+- Figure `results/figures/fig5_shap_groups.png|pdf`. Report `results/tables/stage5_shap_report.md`.
+- Tests: `pytest -q tests` → 125 passed.
+
+### Not completed
+- Trajectory-weighted fire exposure; H1–H3; four-season scheme; embargo options; remaining results figures; paper.

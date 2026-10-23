@@ -1,0 +1,11 @@
+feature,mean_abs_shap,group
+cos1,25.089,Calendar (season)
+log_last,22.464,PM2.5 history
+log_mean4,13.129,PM2.5 history
+mb_prev_low_vent_hours,4.878,Mass balance
+era5_prev_sp_mean_hpa,3.786,ERA5 weather
+era5_prev_blh_mean_m,3.517,ERA5 weather
+traj_mean_height_m,3.432,Trajectories
+era5_prev_msl_mean_hpa,3.125,ERA5 weather
+sin1,2.731,Calendar (season)
+era5_prev_tp_sum_mm,2.361,ERA5 weather

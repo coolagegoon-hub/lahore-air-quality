@@ -1,0 +1,16 @@
+{
+  "predeclaration": "results/tables/stage5_shap_predeclaration.md",
+  "shap_version": "0.54.1",
+  "forecasts_explained": 228,
+  "max_reproduction_error": 4.941478550790634e-07,
+  "max_additivity_error": 2.5579538487363607e-13,
+  "weeks": {
+    "all": 133,
+    "smog": 52,
+    "non_smog": 81
+  },
+  "figures": [
+    "results/figures/fig5_shap_groups.png",
+    "results/figures/fig5_shap_groups.pdf"
+  ]
+}

@@ -1,0 +1,19 @@
+subset,group,n_weeks,mean_abs_shap,share_pct,mean_signed_shap
+all,PM2.5 history,133,27.92,37.559,3.513
+all,Calendar (season),133,19.182,25.805,2.696
+all,ERA5 weather,133,11.578,15.575,1.703
+all,Fire (FIRMS),133,5.971,8.032,0.874
+all,Mass balance,133,7.017,9.439,0.988
+all,Trajectories,133,2.669,3.59,0.845
+smog,PM2.5 history,52,35.386,36.675,26.947
+smog,Calendar (season),52,26.623,27.593,25.199
+smog,ERA5 weather,52,15.136,15.687,13.815
+smog,Fire (FIRMS),52,5.781,5.992,4.443
+smog,Mass balance,52,9.006,9.334,8.464
+smog,Trajectories,52,4.553,4.719,2.218
+non_smog,PM2.5 history,81,23.127,38.469,-11.532
+non_smog,Calendar (season),81,14.406,23.963,-11.751
+non_smog,ERA5 weather,81,9.293,15.459,-6.073
+non_smog,Fire (FIRMS),81,6.093,10.135,-1.417
+non_smog,Mass balance,81,5.739,9.547,-3.811
+non_smog,Trajectories,81,1.459,2.427,-0.036
