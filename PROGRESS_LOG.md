@@ -331,3 +331,15 @@
 
 ### Not completed
 - Trajectory-weighted fire exposure; H1–H3; four-season scheme; embargo options; remaining results figures; paper.
+
+## 2026-10-23 — Step 8: results figures
+
+### Completed
+- Added `src/figures_results.py`. It draws only from saved walk-forward outputs; no model is refitted. Outputs are PNG (300 dpi) + PDF in `results/figures/`:
+  - fig6_mae_by_method: MAE for persistence, climatology, Ridge history and RF L1–L5; all weeks (133) vs Oct–Jan (52).
+  - fig7_layer_increments: ΔMAE for each added layer and L5 vs baselines, with 95% block-bootstrap CIs (4-week blocks).
+  - fig8_forecast_timeseries: observed vs RF L5 and Ridge-history forecasts over the common set, Oct–Jan shaded.
+  - fig9_forecast_vs_observed: RF L5 scatter with 1:1 line (MAE 29.1, R² 0.75).
+- Each figure was rendered and inspected; legend and label overlaps in fig7/fig9 were fixed.
+- Software: Matplotlib (figures are code, so they can be regenerated after any analysis change).
+- Tests: `pytest -q tests` → 125 passed.
