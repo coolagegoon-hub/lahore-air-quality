@@ -1,0 +1,10 @@
+{
+  "predeclaration": "results/tables/stage9a_blh_predeclaration.md",
+  "period": [
+    "2019-04-01",
+    "2025-02-28"
+  ],
+  "arrival_hour_pkt": 11,
+  "missing_blh_hours": 0,
+  "analysis_days": 1801
+}
