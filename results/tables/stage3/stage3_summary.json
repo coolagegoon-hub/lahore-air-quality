@@ -15,28 +15,28 @@
   },
   "prediction_reasons": {
     "L1_history": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "L2_plus_era5": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "L3_plus_fire": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "L4_plus_massbalance": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     }
   },
-  "common_set_weeks": 133,
-  "common_set_smog_weeks": 52,
+  "common_set_weeks": 138,
+  "common_set_smog_weeks": 53,
   "bootstrap": {
     "block_weeks": 4,
     "n_boot": 2000,

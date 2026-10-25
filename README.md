@@ -15,29 +15,29 @@ See [CLAUDE.md](CLAUDE.md) for the binding scientific, leakage, data and integri
 | Step | What | Report |
 |---|---|---|
 | PM2.5 record | AirNow rebuild of the U.S. Consulate Lahore monitor (AQS 586PK3010003), 22 May 2019 – 18 Feb 2025, hourly, quality-controlled | `results/tables/airnow_rebuild_report.md` |
-| Weekly target | Monday–Sunday (PKT) mean, eligible with ≥ 6 of 7 valid days; 235 of 299 full weeks | `results/tables/stage2_weekly_target_report.md` |
+| Weekly target | Monday–Sunday (PKT) mean, eligible with ≥ 6 of 7 valid days; 239 of 299 full weeks | `results/tables/stage2_weekly_target_report.md` |
 | Baselines | Persistence, seasonal climatology, Ridge PM2.5-history model | same, §3 and §6 |
 | Inputs | ERA5 weather, FIRMS fires, one-box mass balance, HYSPLIT trajectories (all from the week before the forecast) | `PROGRESS_LOG.md` |
 | Main model | Walk-forward Random Forest, built up in 5 input layers | `results/tables/stage3_model_report.md`, `stage4_trajectory_report.md` |
 | Explanation | Fold-by-fold out-of-sample SHAP, by input group | `results/tables/stage5_shap_report.md` |
 | Figures | 9 figures (data, SHAP, results) | `results/figures/` |
 
-**Main results** (133 eligible forecast weeks, 17 May 2021 – 10 Feb 2025, 52 of them Oct–Jan; mean absolute error in µg/m³):
+**Main results** (rerun of 2026-10-25 with AirNow's backfilled September 2022 data, see `results/tables/stage6_backfill_report.md`; 138 eligible forecast weeks, 17 May 2021 – 10 Feb 2025, 53 of them Oct–Jan; mean absolute error in µg/m³):
 
-- Persistence 36.4, seasonal climatology 33.7, Ridge PM2.5-history 30.5.
+- Persistence 35.5, seasonal climatology 32.6, Ridge PM2.5-history 29.7.
 - Random Forest layers:
-  - L1 (PM2.5 history) 30.2;
-  - L2 (+ ERA5) 29.8;
-  - L3 (+ fire) 29.4;
-  - L4 (+ mass balance) 29.3;
-  - L5 (+ HYSPLIT trajectories) 29.1.
+  - L1 (PM2.5 history) 29.2;
+  - L2 (+ ERA5) 28.9;
+  - L3 (+ fire) 28.1;
+  - L4 (+ mass balance) 28.7;
+  - L5 (+ HYSPLIT trajectories) 28.4.
 - The full model beats persistence and climatology; 95% block-bootstrap intervals exclude zero.
 - It does **not** reliably beat the Ridge PM2.5-history model.
-- No added input layer gives a statistically reliable improvement. For example, trajectories (L5 vs L4): −0.2 µg/m³, 95% CI −1.2 to +1.0.
+- Only one added layer has an interval that excludes zero, narrowly: fire (L3 vs L2), −0.7 µg/m³, 95% CI −1.9 to −0.01, not in Oct–Jan. Trajectories (L5 vs L4): −0.4 µg/m³, 95% CI −1.3 to +0.8.
 - All models under-predict the highest smog-season weeks.
 - SHAP: the model relies mostly on recent PM2.5 (38%) and season (26%), then ERA5 weather (16%), mass balance (9%), fire (8%) and trajectories (4%). This describes model reliance, not causes.
 
-Analysis designs for Stages 3b, 4 and 5 were written and committed **before** their results were computed (see the `*_predeclaration.md` files and the Git history).
+Analysis designs for Stages 3b, 4, 5 and 6 were written and committed **before** their results were computed (see the `*_predeclaration.md` files and the Git history).
 
 **Not done / open:**
 - trajectory-weighted fire exposure;
@@ -77,7 +77,7 @@ Most steps run from files already in this repository. Four steps need large raw 
 
 | Step | Needs | Committed output |
 |---|---|---|
-| `airnow_hourly_series` | The AirNow hourly archive: about 51 GB transferred, of which only the Lahore lines are kept (`src/airnow_bulk.py`) | `data/processed/airnow_586PK3010003_*.csv` |
+| `airnow_hourly_series` | The AirNow hourly archive: about 51 GB transferred, of which only the Lahore lines are kept (`src/airnow_bulk.py`); plus AirNow's regenerated September 2022 file, included in `data/raw/airnow_embassy_historical/` | `data/processed/airnow_586PK3010003_*.csv` |
 | `era5_features`, `mass_balance_features` | ERA5 time series (`src/download_era5.py`; needs a free Copernicus CDS key: `CDSAPI_URL` and `CDSAPI_KEY` in a local `.env`) | `data/processed/era5_*.csv`, `mass_balance_*.csv` |
 | `firms_features` | FIRMS fire archive, about 150 MB (`src/download_firms.py`; needs a free NASA `FIRMS_MAP_KEY` in `.env`) | `data/processed/firms_*.csv` |
 | `figures_data` | The ERA5 and FIRMS raw files above | `results/figures/fig1`–`fig4` |
@@ -131,7 +131,7 @@ PROGRESS_LOG.md Dated record of all work and decisions
 
 - **One monitor:** the U.S. Consulate Lahore monitor stands in for the whole city.
 - **Preliminary data:** the PM2.5 data are preliminary.
-- **Gaps:** long outages of unknown cause (e.g. 21 Oct – 7 Dec 2021). The 2021–22 and 2022–23 smog seasons are under-represented.
+- **Gaps:** AirNow's Data Management Center (email of 2026-10-23) confirmed that it received no data for 21 Oct – 7 Dec 2021 (cause unknown) and that 26 May – 29 Jun 2024 was partly unreceived and partly withheld after QA (unchanging values). The September 2022 gap was filled with AirNow's regenerated file (Stage 6). The 2021–22 and 2022–23 smog seasons remain under-represented.
 - **Small sample:** 133 comparison weeks, 52 in the smog season.
 - **ERA5 timing:** ERA5 for the previous week stands in for real-time weather analyses.
 - **FIRMS:** cannot see fires under cloud.

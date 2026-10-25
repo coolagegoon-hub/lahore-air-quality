@@ -5,13 +5,13 @@
   "hours_excluded_by_run_rule": 9,
   "min_valid_days": 6,
   "daily_days": 2100,
-  "daily_complete": 1776,
+  "daily_complete": 1801,
   "weeks_total": 301,
   "weeks_partial": 2,
   "full_weeks": 299,
-  "eligible_weeks": 235,
-  "eligible_weeks_7_of_7": 220,
-  "eligible_weeks_6_of_7": 15,
+  "eligible_weeks": 239,
+  "eligible_weeks_7_of_7": 223,
+  "eligible_weeks_6_of_7": 16,
   "eligible_smog_weeks": 88,
   "eligible_weekly_mean_min_max": [
     8.1,
@@ -35,13 +35,12 @@
     "insufficient_history": 1
   },
   "persistence_age_weeks_on_eligible_targets": {
-    "1.0": 206,
+    "1.0": 210,
     "2.0": 15,
     "3.0": 6,
-    "4.0": 2,
+    "4.0": 3,
     "5.0": 1,
     "7.0": 2,
-    "8.0": 1,
     "9.0": 1
   }
 }

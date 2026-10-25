@@ -1,8 +1,8 @@
 {
   "history_reasons": {
-    "ok": 228,
+    "ok": 232,
     "too_little_training_data": 54,
-    "no_eligible_week_in_lookback": 17
+    "no_eligible_week_in_lookback": 13
   },
   "lookback_weeks": 4,
   "ridge_alpha": 1.0,

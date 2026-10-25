@@ -1,5 +1,7 @@
 # AirNow Rebuild — Lahore Hourly PM2.5 (AQS 586PK3010003)
 
+> **Status update (2026-10-25):** the numbers below were recomputed after AirNow's backfilled September 2022 data were added (pre-declared in `stage6_backfill_predeclaration.md`). Current numbers and a before/after comparison: `stage6_backfill_report.md`. The text below is kept as the historical record.
+
 > **Status update (2026-10-23):** §6 items 3–4 were decided on 2026-10-20 (runs of ≥ 7 h invalid; weekly target ≥ 6/7 days), and Stage 2 is complete (`stage2_weekly_target_report.md`). Numbers in this report are unchanged.
 
 - **Date:** 2026-10-18

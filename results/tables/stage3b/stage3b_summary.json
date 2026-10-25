@@ -11,46 +11,46 @@
   "ridge_alpha": 1.0,
   "prediction_reasons": {
     "rflog_L1_history": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "rflog_L2_plus_era5": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "rflog_L3_plus_fire": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "rflog_L4_plus_massbalance": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "ridgeall_L1_history": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "ridgeall_L2_plus_era5": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "ridgeall_L3_plus_fire": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     },
     "ridgeall_L4_plus_massbalance": {
-      "ok": 228,
+      "ok": 232,
       "too_little_training_data": 54,
-      "missing_features": 17
+      "missing_features": 13
     }
   },
-  "common_set_weeks": 133,
-  "common_set_smog_weeks": 52
+  "common_set_weeks": 138,
+  "common_set_smog_weeks": 53
 }

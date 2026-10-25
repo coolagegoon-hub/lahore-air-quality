@@ -1,5 +1,7 @@
 # Stage 4 — HYSPLIT Trajectory Features (Model Layer 5): Results
 
+> **Status update (2026-10-25):** the numbers below were recomputed after AirNow's backfilled September 2022 data were added (pre-declared in `stage6_backfill_predeclaration.md`). Current numbers and a before/after comparison: `stage6_backfill_report.md`. The text below is kept as the historical record.
+
 - **Date:** 2026-10-23
 - **Design:** pre-declared in `stage4_predeclaration.md`, committed (2a4b644) before any fitting. Everything below follows that declaration; no setting was changed after seeing results.
 - **Code:** `src/trajectory_features.py`, `src/stage4_trajectory_model.py`; tests `tests/test_trajectory_features.py` (5).

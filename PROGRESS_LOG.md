@@ -395,3 +395,14 @@
 ### Open
 - Notify AirNow (and the U.S. Department of State as data owner) about the project before publishing; the user decides whether to also return the guidelines form.
 - Whether to make the repository public.
+
+## 2026-10-25 — Stage 6: AirNow backfill for September 2022, full rerun
+
+### Completed
+- AirNow's Data Management Center (Marcus Hylton, email of 2026-10-23) explained the three long gaps: 21 Oct – 7 Dec 2021 not received (cause unknown); 6 Sep – 1 Oct 2022 backfilled after the archive was written; 26 May – 29 Jun 2024 partly unreceived and partly withheld after QA (unchanging values).
+- Downloaded AirNow's regenerated file `Lahore_PM2.5_2022_09_MTD.csv` to `data/raw/airnow_embassy_historical/` (with provenance and SHA-256). Timing check before any rerun: all 81 overlapping hours identical with labels read as hour-ending PKT.
+- Pre-declared the change (`results/tables/stage6_backfill_predeclaration.md`, commit c081b10) before rebuilding: archive rows stay primary; backfill fills only absent hours; disagreement stops the build.
+- `src/airnow_hourly_series.py`: `load_backfill()` and `merge_backfill()`; 3 new synthetic tests.
+- Reran all 12 pipeline steps (about 7 minutes; the Mac was kept awake). Tests: `pytest -q tests` → 128 passed.
+- Results (`results/tables/stage6_backfill_report.md`): +599 valid hours; 1,801 complete days; 239 eligible weeks; common set 138 weeks (53 Oct–Jan). MAE: persistence 35.5, climatology 32.6, Ridge 29.7, RF L1–L5 29.2 / 28.9 / 28.1 / 28.7 / 28.4. L5 vs L4 −0.37 (−1.30, +0.77). Fire layer (L3 vs L2) −0.74 (−1.90, −0.01), narrowly excluding zero over all weeks only. SHAP shares essentially unchanged.
+- Added dated notes to the earlier reports; README updated.

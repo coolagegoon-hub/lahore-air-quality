@@ -1,5 +1,7 @@
 # Stage 3 — Main Model (Random Forest) Built Up in Input Layers
 
+> **Status update (2026-10-25):** the numbers below were recomputed after AirNow's backfilled September 2022 data were added (pre-declared in `stage6_backfill_predeclaration.md`). Current numbers and a before/after comparison: `stage6_backfill_report.md`. The text below is kept as the historical record.
+
 > **Status update (2026-10-23):** The HYSPLIT layer L5 has since been added (`stage4_trajectory_report.md`), and SHAP is done (`stage5_shap_report.md`). The results in this report are unchanged.
 
 - **Date:** 2026-10-21

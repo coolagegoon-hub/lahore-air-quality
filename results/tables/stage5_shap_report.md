@@ -1,5 +1,7 @@
 # Stage 5 — SHAP Analysis of the Layer-5 Model: Results
 
+> **Status update (2026-10-25):** the numbers below were recomputed after AirNow's backfilled September 2022 data were added (pre-declared in `stage6_backfill_predeclaration.md`). Current numbers and a before/after comparison: `stage6_backfill_report.md`. The text below is kept as the historical record.
+
 - **Date:** 2026-10-23
 - **Design:** pre-declared in `stage5_shap_predeclaration.md` (commit 5e8ef42, before computing). No setting was changed after seeing results.
 - **Code:** `src/shap_analysis.py`; tests `tests/test_shap_analysis.py` (4).

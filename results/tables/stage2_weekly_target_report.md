@@ -1,5 +1,7 @@
 # Stage 2 — Weekly PM2.5 Target and Reference Baselines
 
+> **Status update (2026-10-25):** the numbers below were recomputed after AirNow's backfilled September 2022 data were added (pre-declared in `stage6_backfill_predeclaration.md`). Current numbers and a before/after comparison: `stage6_backfill_report.md`. The text below is kept as the historical record.
+
 > **Status update (2026-10-23):** §4 item 3 is done (the PM2.5-history model, §6 of this report). Item 4 is done: ERA5 and FIRMS were downloaded and their features used in Stages 3–5. Items 1–2 (climatology settings, persistence maximum age) are unchanged, as declared. Numbers in this report are unchanged.
 
 - **Date:** 2026-10-20

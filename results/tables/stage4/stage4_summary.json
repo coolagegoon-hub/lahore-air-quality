@@ -8,32 +8,32 @@
   "k_primary": 6,
   "prediction_reasons": {
     "rf_L5_plus_traj": {
-      "ok": 228,
+      "ok": 232,
       "too_few_trajectories_for_clustering": 46,
-      "missing_features": 16,
+      "missing_features": 12,
       "too_little_training_data": 9
     },
     "rf_L1_plus_traj": {
-      "ok": 228,
+      "ok": 232,
       "too_few_trajectories_for_clustering": 46,
-      "missing_features": 16,
+      "missing_features": 12,
       "too_little_training_data": 9
     },
     "rf_L5_plus_traj_k4": {
-      "ok": 228,
+      "ok": 232,
       "too_few_trajectories_for_clustering": 46,
-      "missing_features": 16,
+      "missing_features": 12,
       "too_little_training_data": 9
     },
     "rf_L5_plus_traj_k8": {
-      "ok": 228,
+      "ok": 232,
       "too_few_trajectories_for_clustering": 46,
-      "missing_features": 16,
+      "missing_features": 12,
       "too_little_training_data": 9
     }
   },
-  "common_set_weeks": 133,
-  "common_set_smog_weeks": 52,
+  "common_set_weeks": 138,
+  "common_set_smog_weeks": 53,
   "common_set_span": [
     "2021-05-17",
     "2025-02-10"
