@@ -1,0 +1,28 @@
+{
+  "predeclaration": "results/tables/stage7_association_predeclaration.md",
+  "analysis_days": 1801,
+  "trajectories": 2161,
+  "k": 3,
+  "kmeans_ari": 0.822,
+  "missing_satellite_days": [
+    "2023-11-02",
+    "2024-05-31",
+    "2024-06-01",
+    "2024-06-02",
+    "2024-06-03",
+    "2024-07-16",
+    "2024-07-29",
+    "2024-11-04",
+    "2024-11-05",
+    "2024-11-06"
+  ],
+  "fire_days_missing_exposure": 22,
+  "days_by_season": {
+    "winter": 475,
+    "pre-monsoon": 385,
+    "monsoon": 633,
+    "post-monsoon": 308
+  },
+  "h3_null_share_ge_c": 0.0,
+  "h3_null_count": 9
+}

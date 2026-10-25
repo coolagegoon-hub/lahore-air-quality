@@ -182,9 +182,10 @@ def _ray(lat0, lon0, bearing_deg, r_km):
 BORDERS = PROJECT_ROOT / "data" / "raw" / "natural_earth" / "ne_10m_admin_0_boundary_lines_land.geojson"
 
 
-def draw_borders(ax, path: Path = BORDERS) -> None:
+def draw_borders(ax, path: Path = BORDERS, bbox: tuple = (66, 81, 24, 38)) -> None:
     """Natural Earth 1:10m land boundary lines (public domain): international boundaries solid,
-    disputed / line-of-control / indefinite boundaries dashed."""
+    disputed / line-of-control / indefinite boundaries dashed. Lines entirely outside bbox
+    (lon_min, lon_max, lat_min, lat_max) are skipped."""
     import json
 
     g = json.loads(path.read_text())
@@ -195,7 +196,7 @@ def draw_borders(ax, path: Path = BORDERS) -> None:
         disputed = any(k in cla for k in ("disputed", "line of control", "indefinite", "indeterminant", "unrecognized"))
         for line in lines:
             xy = np.asarray(line)
-            if xy[:, 0].max() < 66 or xy[:, 0].min() > 81 or xy[:, 1].max() < 24 or xy[:, 1].min() > 38:
+            if xy[:, 0].max() < bbox[0] or xy[:, 0].min() > bbox[1] or xy[:, 1].max() < bbox[2] or xy[:, 1].min() > bbox[3]:
                 continue
             ax.plot(xy[:, 0], xy[:, 1], color=INK, lw=1.3 if not disputed else 1.0,
                     ls="-" if not disputed else (0, (4, 2)), zorder=4, solid_capstyle="round")
