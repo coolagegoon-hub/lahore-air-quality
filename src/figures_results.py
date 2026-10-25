@@ -90,8 +90,9 @@ def fig7_increments():
     n = len(rows)
     ypos = np.arange(n)[::-1].astype(float)
     ypos[4:] -= 0.6  # visual gap between increments and baseline comparisons
-    for subset, color, marker, off, lab in (("all", fd.BLUE, "o", 0.16, "All weeks (n = 133)"),
-                                            ("smog", fd.ORANGE, "s", -0.16, "Oct–Jan weeks (n = 52)")):
+    ns = {s: int(b.loc[b["subset"] == s, "n"].iloc[0]) for s in ("all", "smog")}
+    for subset, color, marker, off, lab in (("all", fd.BLUE, "o", 0.16, f"All weeks (n = {ns['all']})"),
+                                            ("smog", fd.ORANGE, "s", -0.16, f"Oct–Jan weeks (n = {ns['smog']})")):
         for i, (a, b_, _) in enumerate(rows):
             r = b[(b["model"] == a) & (b["compared_to"] == b_) & (b["subset"] == subset)].iloc[0]
             ax.errorbar(r["mae_diff"], ypos[i] + off, xerr=[[r["mae_diff"] - r["ci95_low"]], [r["ci95_high"] - r["mae_diff"]]],
