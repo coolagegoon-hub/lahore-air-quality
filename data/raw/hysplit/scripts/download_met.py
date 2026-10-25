@@ -1,4 +1,5 @@
-"""Resumable download of NOAA ARL NCEP/NCAR Reanalysis (2.5 deg) monthly files.
+"""Resumable download of NOAA ARL meteorology: NCEP/NCAR Reanalysis (2.5 deg) monthly files,
+or (--dataset gdas1) GDAS 1 deg weekly files.
 
 Each file is fetched with curl (resume with -C -), checked against the size the
 server reports and against NOAA's published MD5 (listing.md5.txt), and recorded
@@ -8,6 +9,7 @@ already verified, so the script can be stopped and restarted at any time.
 Usage:
     python -I download_met.py --dest D:\\hysplit_met --first 2019-03 --last 2025-02
     python -I download_met.py --dest D:\\hysplit_met --files RP201903.gbl
+    python -I download_met.py --dataset gdas1 --dest D:\\hysplit_gdas1 --first-day 2024-02-27 --last-day 2025-02-28
 """
 import argparse
 import csv
@@ -20,7 +22,9 @@ import sys
 import time
 import urllib.request
 
-BASE_URL = "https://www.ready.noaa.gov/data/archives/reanalysis/"
+BASE_URLS = {"reanalysis": "https://www.ready.noaa.gov/data/archives/reanalysis/",
+             "gdas1": "https://www.ready.noaa.gov/data/archives/gdas1/"}
+MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
 MANIFEST_FIELDS = ["file", "url", "bytes", "md5_noaa", "md5_local", "sha256",
                    "verified_utc", "status"]
 
@@ -32,6 +36,21 @@ def month_files(first, last):
     while (y, m) <= (ly, lm):
         out.append(f"RP{y:04d}{m:02d}.gbl")
         y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+    return out
+
+
+def gdas1_name(day):
+    """GDAS 1 deg weekly file holding this UTC day: w1 = days 1-7, w2 = 8-14, ..., w5 = 29-31."""
+    return f"gdas1.{MONTHS[day.month - 1]}{day.year % 100:02d}.w{(day.day - 1) // 7 + 1}"
+
+
+def gdas1_files(first_day, last_day):
+    day, end, out = dt.date.fromisoformat(first_day), dt.date.fromisoformat(last_day), []
+    while day <= end:
+        name = gdas1_name(day)
+        if name not in out:
+            out.append(name)
+        day += dt.timedelta(days=1)
     return out
 
 
@@ -48,9 +67,9 @@ def with_retries(fn, what, tries=8):
             time.sleep(wait)
 
 
-def fetch_noaa_md5(cache_path):
+def fetch_noaa_md5(cache_path, base_url):
     def get():
-        with urllib.request.urlopen(BASE_URL + "listing.md5.txt", timeout=120) as r:
+        with urllib.request.urlopen(base_url + "listing.md5.txt", timeout=120) as r:
             return r.read().decode("ascii", "replace")
     try:
         text = with_retries(get, "listing.md5.txt")
@@ -114,7 +133,10 @@ def download(url, part_path):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--dataset", choices=sorted(BASE_URLS), default="reanalysis")
     ap.add_argument("--dest", required=True)
+    ap.add_argument("--first-day", help="gdas1: first UTC day needed (YYYY-MM-DD)")
+    ap.add_argument("--last-day", help="gdas1: last UTC day needed (YYYY-MM-DD)")
     ap.add_argument("--first", default="2019-03")
     ap.add_argument("--last", default="2025-02")
     ap.add_argument("--files", nargs="*", help="explicit file names instead of a month range")
@@ -124,12 +146,20 @@ def main():
     os.makedirs(args.dest, exist_ok=True)
     manifest_path = args.manifest or os.path.join(args.dest, "manifest.csv")
     rows = load_manifest(manifest_path)
-    noaa_md5 = fetch_noaa_md5(os.path.join(args.dest, "listing.md5.txt"))
-    names = args.files or month_files(args.first, args.last)
+    base_url = BASE_URLS[args.dataset]
+    noaa_md5 = fetch_noaa_md5(os.path.join(args.dest, "listing.md5.txt"), base_url)
+    if args.files:
+        names = args.files
+    elif args.dataset == "gdas1":
+        if not (args.first_day and args.last_day):
+            raise SystemExit("--dataset gdas1 needs --first-day and --last-day")
+        names = gdas1_files(args.first_day, args.last_day)
+    else:
+        names = month_files(args.first, args.last)
     failures = 0
 
     for name in names:
-        url = BASE_URL + name
+        url = base_url + name
         final = os.path.join(args.dest, name)
         part = final + ".part"
         prev = rows.get(name)

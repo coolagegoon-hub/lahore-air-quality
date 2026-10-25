@@ -23,9 +23,21 @@ import subprocess
 LAT, LON = 31.560078, 74.33589  # U.S. Consulate Lahore PM2.5 monitor
 
 
-def met_files_for(arrival, hours_back):
-    """Reanalysis monthly files covering [arrival - hours_back, arrival]."""
+MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+
+
+def met_files_for(arrival, hours_back, dataset="reanalysis"):
+    """Met files covering [arrival - hours_back, arrival]: reanalysis monthly files, or
+    GDAS 1 deg weekly files (w1 = days 1-7, ..., w5 = days 29-31)."""
     start = arrival - dt.timedelta(hours=hours_back)
+    if dataset == "gdas1":
+        names, day = [], start.date()
+        while day <= arrival.date():
+            name = f"gdas1.{MONTHS[day.month - 1]}{day.year % 100:02d}.w{(day.day - 1) // 7 + 1}"
+            if name not in names:
+                names.append(name)
+            day += dt.timedelta(days=1)
+        return names
     names, y, m = [], start.year, start.month
     while (y, m) <= (arrival.year, arrival.month):
         names.append(f"RP{y:04d}{m:02d}.gbl")
@@ -79,7 +91,7 @@ def parse_tdump(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--hyts", required=True, help="path to hyts_std.exe")
-    ap.add_argument("--met", required=True, help="directory with RPyyyymm.gbl files")
+    ap.add_argument("--met", required=True, help="directory with the met files (RPyyyymm.gbl or gdas1.*)")
     ap.add_argument("--runs", required=True, help="working dir for CONTROL/tdump (no spaces)")
     ap.add_argument("--out", required=True, help="output endpoints CSV")
     ap.add_argument("--start", default="2019-04-01")
@@ -87,6 +99,8 @@ def main():
     ap.add_argument("--hour", type=int, nargs="+", default=[6], help="arrival hour(s) UTC")
     ap.add_argument("--height", type=float, nargs="+", default=[500.0], help="arrival height(s) m AGL")
     ap.add_argument("--hours-back", type=int, default=72)
+    ap.add_argument("--dataset", choices=["reanalysis", "gdas1"], default="reanalysis",
+                    help="meteorology file naming: reanalysis RPyyyymm.gbl (default) or gdas1 weekly")
     args = ap.parse_args()
 
     if " " in args.runs or " " in args.met:
@@ -122,7 +136,7 @@ def main():
         out_path = os.path.join(tdump_dir, out_name)
         if os.path.exists(out_path):
             continue
-        met_names = met_files_for(arrival, args.hours_back)
+        met_names = met_files_for(arrival, args.hours_back, args.dataset)
         missing = [n for n in met_names if not os.path.exists(os.path.join(args.met, n))]
         if missing:
             failed.append((arrival, height, "missing met: " + " ".join(missing)))
