@@ -31,15 +31,15 @@ TAB = PROJECT_ROOT / "results" / "tables"
 METHODS = [
     ("persistence", "Persistence (last week)"),
     ("climatology", "Seasonal climatology"),
-    ("history_model", "Ridge PM2.5-history"),
-    ("rf_L1_history", "RF L1: PM2.5 history"),
+    ("history_model", "Ridge PM$_{2.5}$-history"),
+    ("rf_L1_history", "RF L1: PM$_{2.5}$ history"),
     ("rf_L2_plus_era5", "RF L2: + ERA5 weather"),
     ("rf_L3_plus_fire", "RF L3: + FIRMS fire"),
     ("rf_L4_plus_massbalance", "RF L4: + mass balance"),
     ("rf_L5_plus_traj", "RF L5: + HYSPLIT trajectories"),
 ]
 NOTE = ("Walk-forward forecasts, zero embargo; common set of eligible weeks 17 May 2021 – 10 Feb 2025. "
-        "PM2.5: U.S. Consulate Lahore via EPA AirNow\n(U.S. Department of State); preliminary data.")
+        "PM$_{2.5}$: U.S. Consulate Lahore via EPA AirNow\n(U.S. Department of State); preliminary data.")
 
 
 def load_common() -> pd.DataFrame:
@@ -63,7 +63,7 @@ def fig6_mae(c: pd.DataFrame):
             ax.text(v + 0.5, yi, f"{v:.1f}", va="center", fontsize=8.5, color=fd.INK_2)
         ax.set_title(title, loc="left")
         ax.set_xlim(0, max(mae) * 1.15)
-        ax.set_xlabel("Mean absolute error (µg/m³)")
+        ax.set_xlabel("Mean absolute error (µg m$^{-3}$)")
         ax.grid(axis="y", visible=False)
     axes[0].set_yticks(np.arange(len(labels)), labels)
     fig.suptitle("Forecast error by method: lower is better", x=0.125, ha="left", fontweight="bold", fontsize=11)
@@ -82,7 +82,7 @@ def fig7_increments():
         ("rf_L3_plus_fire", "rf_L2_plus_era5", "+ FIRMS fire (L3 vs L2)"),
         ("rf_L4_plus_massbalance", "rf_L3_plus_fire", "+ mass balance (L4 vs L3)"),
         ("rf_L5_plus_traj", "rf_L4_plus_massbalance", "+ HYSPLIT trajectories (L5 vs L4)"),
-        ("rf_L5_plus_traj", "history_model", "L5 vs Ridge PM2.5-history"),
+        ("rf_L5_plus_traj", "history_model", "L5 vs Ridge PM$_{2.5}$-history"),
         ("rf_L5_plus_traj", "climatology", "L5 vs seasonal climatology"),
         ("rf_L5_plus_traj", "persistence", "L5 vs persistence"),
     ]
@@ -101,7 +101,7 @@ def fig7_increments():
     ax.axhline((ypos[3] + ypos[4]) / 2, color=fd.GRID, lw=1)
     ax.set_yticks(ypos, [r[2] for r in rows])
     ax.grid(axis="y", visible=False)
-    ax.set_xlabel("Change in mean absolute error (µg/m³); left of 0 = first model better")
+    ax.set_xlabel("Change in mean absolute error (µg m$^{-3}$); left of 0 = first model better")
     ax.legend(loc="upper left", fontsize=8.5)
     ax.set_title("What each input adds, with 95% bootstrap intervals", loc="left")
     ax.text(0.0, -0.17, "Intervals crossing 0: no reliable difference. Moving-block bootstrap, 4-week blocks, 2,000 resamples, "
@@ -130,7 +130,7 @@ def fig8_timeseries(c: pd.DataFrame):
                          "font.size": 8.5, "axes.labelsize": 8.5, "xtick.labelsize": 8, "ytick.labelsize": 8}):
         fig, axes = plt.subplots(2, 1, figsize=(7.2, 4.9), sharex=True, sharey=True)
         panels = [("rf_L5_plus_traj", fd.BLUE, "(a) Random Forest, model 5 (all inputs)"),
-                  ("history_model", fd.ORANGE, "(b) Ridge regression on past PM2.5")]
+                  ("history_model", fd.ORANGE, "(b) Ridge regression on past PM$_{2.5}$")]
         for ax, (col, color, label) in zip(axes, panels):
             for a_, b_ in fd.smog_spans(mid.min(), mid.max()):
                 ax.axvspan(a_, b_, color="#efefef", lw=0, zorder=0)
@@ -168,16 +168,16 @@ def fig9_scatter(c: pd.DataFrame):
     ax.scatter(obs[smog], pred[smog], s=26, color=fd.ORANGE, marker="s", edgecolor=fd.SURFACE, lw=0.8, label=f"Oct–Jan (n = {int(smog.sum())})", zorder=3)
     mae = float(np.abs(pred - obs).mean())
     r2 = 1 - float(((pred - obs) ** 2).sum()) / float(((obs - obs.mean()) ** 2).sum())
-    ax.text(0.04, 0.96, f"RF L5, all 133 weeks\nMAE {mae:.1f} µg/m³, R² {r2:.2f}", transform=ax.transAxes, va="top", fontsize=9)
+    ax.text(0.04, 0.96, f"RF L5, all {len(obs)} weeks\nMAE {mae:.1f} µg m$^{{-3}}$, R² {r2:.2f}", transform=ax.transAxes, va="top", fontsize=9)
     ax.text(lim * 0.97, lim * 0.78, "1:1 line", color=fd.INK_2, fontsize=8.5, ha="right", va="top")
     ax.set_xlim(0, lim)
     ax.set_ylim(0, lim)
     ax.set_aspect("equal")
-    ax.set_xlabel("Observed weekly mean PM2.5 (µg/m³)")
-    ax.set_ylabel("Forecast (µg/m³)")
+    ax.set_xlabel("Observed weekly mean PM$_{2.5}$ (µg m$^{-3}$)")
+    ax.set_ylabel("Forecast (µg m$^{-3}$)")
     ax.legend(loc="lower right", fontsize=8.5)
     ax.set_title("Forecast vs observed (RF layer 5)", loc="left")
-    ax.text(0.0, -0.15, "Points below the 1:1 line are under-forecasts.\nPM2.5: EPA AirNow (U.S. Dept. of State); preliminary data.",
+    ax.text(0.0, -0.15, "Points below the 1:1 line are under-forecasts.\nPM$_{2.5}$: EPA AirNow (U.S. Dept. of State); preliminary data.",
             transform=ax.transAxes, fontsize=8, color=fd.INK_2, va="top")
     return fd.save(fig, "fig9_forecast_vs_observed")
 

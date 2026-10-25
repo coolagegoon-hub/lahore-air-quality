@@ -125,13 +125,13 @@ def plot_groups(summary: pd.DataFrame, path_stem: Path) -> list[Path]:
         ax.text(v + 0.3, yi + h / 2, f"{v:.1f}", va="center", fontsize=8.5, color=fd.INK_2)
     for yi, v in zip(y, s["mean_abs_shap"]):
         ax.text(v + 0.3, yi - h / 2, f"{v:.1f}", va="center", fontsize=8.5, color=fd.INK_2)
-    ax.set_yticks(y, order)
-    ax.set_xlabel("Mean |group SHAP value| (µg/m³)")
+    ax.set_yticks(y, [g.replace("PM2.5", "PM$_{2.5}$") for g in order])
+    ax.set_xlabel("Mean |group SHAP value| (µg m$^{-3}$)")
     ax.grid(axis="y", visible=False)
     ax.legend(loc="lower right", fontsize=8.5)
     ax.set_title("What the layer-5 Random Forest relied on, by input group", loc="left")
     ax.text(0.0, -0.2, "Out-of-sample SHAP: one explanation per walk-forward forecast, from that week's own model. "
-            "Model reliance, not causal attribution.\nPM2.5: U.S. Consulate Lahore via EPA AirNow (U.S. Department of State); "
+            "Model reliance, not causal attribution.\nPM$_{2.5}$: U.S. Consulate Lahore via EPA AirNow (U.S. Department of State); "
             "preliminary data.", transform=ax.transAxes, fontsize=8, color=fd.INK_2, va="top")
     paths = []
     for ext in ("png", "pdf"):

@@ -48,7 +48,7 @@ BLUE = "#2a78d6"
 ORANGE = "#eb6834"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-SOURCE_NOTE = "PM2.5: U.S. Consulate Lahore monitor via EPA AirNow (U.S. Department of State); preliminary data."
+SOURCE_NOTE = "PM$_{2.5}$: U.S. Consulate Lahore monitor via EPA AirNow (U.S. Department of State); preliminary data."
 
 
 def style() -> None:
@@ -96,12 +96,12 @@ def fig1_weekly_series(weekly: pd.DataFrame):
     ax.plot(mid, w["value"], color=BLUE, lw=2, solid_capstyle="round")
     ax.scatter(mid, w["value"], s=10, color=BLUE, zorder=3)
     i = w["value"].idxmax()
-    ax.annotate(f"{w.loc[i, 'value']:.0f} µg/m³\nweek of {w.loc[i, 'week_start']:%d %b %Y}",
+    ax.annotate(f"{w.loc[i, 'value']:.0f} µg m$^{{-3}}$\nweek of {w.loc[i, 'week_start']:%d %b %Y}",
                 xy=(mid[i], w.loc[i, "value"]), xytext=(15, -10), textcoords="offset points",
                 fontsize=9, color=INK_2, va="top")
-    ax.set_ylabel("Weekly mean PM2.5 (µg/m³)")
+    ax.set_ylabel("Weekly mean PM$_{2.5}$ (µg m$^{-3}$)")
     ax.set_ylim(0, None)
-    ax.set_title("Weekly mean PM2.5, Lahore, May 2019 – Feb 2025", loc="left")
+    ax.set_title("Weekly mean PM$_{2.5}$, Lahore, May 2019 – Feb 2025", loc="left")
     n_el, n_full = int(w["eligible"].sum()), len(w)
     ax.text(0.0, -0.2, f"Eligible weeks (≥ 6 of 7 valid days): {n_el} of {n_full}; gaps = ineligible weeks. "
             f"Grey bands: Oct–Jan smog season.\n{SOURCE_NOTE}", transform=ax.transAxes, fontsize=8, color=INK_2, va="top")
@@ -122,8 +122,8 @@ def fig2_seasonal(weekly: pd.DataFrame, fire_daily: pd.DataFrame, hourly_box: pd
                          capprops={"color": INK_2}, boxprops={"color": BLUE})
     for b in bp["boxes"]:
         b.set_facecolor(SEQ[1])
-    axes[0].set_ylabel("µg/m³")
-    axes[0].set_title("(a) Weekly mean PM2.5 by month", loc="left")
+    axes[0].set_ylabel("µg m$^{-3}$")
+    axes[0].set_title("(a) Weekly mean PM$_{2.5}$ by month", loc="left")
 
     # (b) fires per month by sector (mean per calendar year present)
     f = fire_daily.copy()
@@ -141,7 +141,7 @@ def fig2_seasonal(weekly: pd.DataFrame, fire_daily: pd.DataFrame, hourly_box: pd
     # (c) median hourly ventilation coefficient
     vc = hourly_box.groupby(hourly_box["day"].dt.month)["vc"].median().reindex(x)
     axes[2].bar(x, vc, 0.6, color=BLUE)
-    axes[2].set_ylabel("m² s⁻¹")
+    axes[2].set_ylabel("m$^{2}$ s$^{-1}$")
     axes[2].set_title("(c) Ventilation coefficient (boundary-layer height × 10 m wind), median hour", loc="left")
 
     # (d) mean monthly rainfall
@@ -247,7 +247,7 @@ def fig3_fire_map(kept: pd.DataFrame):
     ax.text(71.6, 30.2, "West / south\nsector", fontsize=9, ha="center", color=INK, fontweight="bold",
             path_effects=halo, zorder=6)
     ax.plot(lon0, lat0, marker="*", ms=14, color=ORANGE, mec=INK, mew=0.8, zorder=7)
-    ax.annotate("Lahore PM2.5 monitor", (lon0, lat0), xytext=(10, 6), textcoords="offset points",
+    ax.annotate("Lahore PM$_{2.5}$ monitor", (lon0, lat0), xytext=(10, 6), textcoords="offset points",
                 fontsize=9, fontweight="bold", path_effects=halo, zorder=7)
     ax.set_xlim(69, 78)
     ax.set_ylim(27, 35)
@@ -289,7 +289,7 @@ def fig4_availability(daily: pd.DataFrame):
     ax.legend(handles=[Patch(color=SHADE, label="0 h (no data)"), Patch(color=ordinal[0], label="1–17 h (incomplete)"),
                        Patch(color=ordinal[1], label="18–23 h (valid day)"), Patch(color=ordinal[2], label="24 h")],
               loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=4, fontsize=8.5)
-    ax.set_title("Daily PM2.5 data availability: valid hours per day", loc="left")
+    ax.set_title("Daily PM$_{2.5}$ data availability: valid hours per day", loc="left")
     n_ok = int((d["hours_valid"] >= 18).sum())
     ax.text(0.0, -0.32, f"{n_ok} of {len(d)} days have ≥ 18 valid hours (after QC). White = outside the record. "
             + SOURCE_NOTE, transform=ax.transAxes, fontsize=8, color=INK_2, va="top")
