@@ -29,6 +29,7 @@ data/raw/*
 # trajectories (made on a separate laptop) and the public-domain Natural Earth borders
 !data/raw/hysplit/
 !data/raw/natural_earth/
+!data/raw/airnow_embassy_historical/
 
 # Large data files
 *.nc

@@ -13,6 +13,12 @@ Conventions
   negatives (typically > -5) as valid; this project's QC rule (src.pm25_qc) treats negatives as
   invalid. ``negative_policy`` selects: "invalid" (default, project rule) or "keep_ge_minus5".
   Hours with no AirNow record are missing. Nothing is imputed.
+- Backfill (Stage 6, declared in results/tables/stage6_backfill_predeclaration.md): AirNow's
+  regenerated EmbassyHistorical files in data/raw/airnow_embassy_historical/ hold data that were
+  backfilled after the archive was written (Sep 2022). Their ``Date (LT)`` labels are hour-ending
+  PKT (checked: identical values on all 81 overlapping hours at offset 0). A backfill row is used
+  only for an hour with no archive row; overlapping hours must agree exactly, or the build stops.
+  Rows whose QC Name is not "Valid", or whose value is -999, are treated as absent.
 
 Usage:
     python -m src.airnow_hourly_series
@@ -37,6 +43,7 @@ LAST_LOCAL_DAY = "2025-02-18"
 OUT_DIR = PROJECT_ROOT / "results" / "tables" / "airnow_rebuild"
 HOURLY_CSV = PROJECT_ROOT / "data" / "processed" / f"airnow_{AQSID}_hourly.csv"
 NEGATIVE_POLICIES = ("invalid", "keep_ge_minus5")
+BACKFILL_DIR = PROJECT_ROOT / "data" / "raw" / "airnow_embassy_historical"
 
 
 def local_hour_ending_range(first_day: str, last_day: str) -> pd.DatetimeIndex:
@@ -81,6 +88,42 @@ def to_hourly(df: pd.DataFrame, negative_policy: str = "invalid") -> pd.DataFram
     return out.sort_index()
 
 
+def load_backfill(backfill_dir: Path = BACKFILL_DIR) -> pd.Series:
+    """Valid-QC values from AirNow EmbassyHistorical files, indexed by hour-ending PKT."""
+    files = sorted(backfill_dir.glob("*.csv"))
+    if not files:
+        return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz=qc.TZ, name="timestamp"), name="value")
+    df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
+    problems = []
+    if not df["Parameter"].astype(str).str.startswith("PM2.5").all():
+        problems.append(f"parameter {sorted(df['Parameter'].unique())}")
+    if set(df["Conc. Unit"].unique()) - {"UG/M3"}:
+        problems.append(f"units {sorted(df['Conc. Unit'].unique())}")
+    if set(df["Duration"].unique()) - {"1 Hr"}:
+        problems.append(f"duration {sorted(df['Duration'].unique())}")
+    if problems:
+        raise ValueError("unexpected backfill rows: " + "; ".join(problems))
+    df = df[(df["QC Name"] == "Valid") & (df["Raw Conc."] != -999)]
+    ts = pd.to_datetime(df["Date (LT)"], format="%Y-%m-%d %I:%M %p").dt.tz_localize(qc.TZ)
+    s = pd.Series(df["Raw Conc."].astype(float).to_numpy(), index=pd.DatetimeIndex(ts, name="timestamp"), name="value")
+    if s.index.duplicated().any():
+        raise ValueError(f"{int(s.index.duplicated().sum())} duplicate backfill hours")
+    return s.sort_index()
+
+
+def merge_backfill(hourly: pd.DataFrame, backfill: pd.Series, negative_policy: str = "invalid") -> tuple[pd.DataFrame, dict]:
+    """Add backfill values for hours absent from the archive rows; overlapping hours must be identical."""
+    overlap = backfill.index.intersection(hourly.index)
+    differ = ~np.isclose(hourly.loc[overlap, "value"].to_numpy(), backfill.loc[overlap].to_numpy())
+    if differ.any():
+        raise ValueError(f"backfill disagrees with the archive on {int(differ.sum())} of {len(overlap)} overlapping hours")
+    add = backfill.drop(overlap)
+    floor = 0.0 if negative_policy == "invalid" else -5.0
+    extra = pd.DataFrame({"value": add.to_numpy(), "valid": add.to_numpy() >= floor}, index=add.index)
+    merged = pd.concat([hourly, extra]).sort_index()
+    return merged, {"backfill_rows": len(backfill), "backfill_overlap_identical": len(overlap), "backfill_hours_added": len(add)}
+
+
 def complete_grid(hourly: pd.DataFrame, labels: pd.DatetimeIndex) -> pd.DataFrame:
     """Reindex to explicit hour-ending labels (absent hours become explicit invalid rows), then
     add src.pm25_qc's repeat flags. Columns match src.pm25_qc.to_complete_hourly_grid."""
@@ -99,7 +142,7 @@ def build(negative_policy: str = "invalid", first_day: str = FIRST_LOCAL_DAY, la
         raise RuntimeError(f"{raw.attrs['files_missing']} archive files missing from cache; run src.airnow_bulk")
     rows = validate_airnow_rows(raw, aqsid)
     labels = local_hour_ending_range(first_day, last_day)
-    hourly = to_hourly(rows, negative_policy)
+    hourly, backfill_info = merge_backfill(to_hourly(rows, negative_policy), load_backfill(), negative_policy)
     grid = complete_grid(hourly.loc[hourly.index.isin(labels)], labels)
     daily = qc.daily_summary(grid)
     info = {
@@ -107,6 +150,7 @@ def build(negative_policy: str = "invalid", first_day: str = FIRST_LOCAL_DAY, la
         "gmt_files_from": start, "gmt_files_to": end,
         "rows_in_range": int(hourly.index.isin(labels).sum()),
         "negative_values_in_range": int((hourly.loc[hourly.index.isin(labels), "value"] < 0).sum()),
+        **backfill_info,
     }
     return grid, daily, info
 

@@ -78,3 +78,38 @@ def test_monthly_alignment_labels_shift():
     shifted = ahs.monthly_alignment(pd.Series(airnow.to_numpy()[1:], index=idx[:-1]), airnow)
     assert aligned["label"].tolist() == ["aligned"]
     assert shifted["label"].tolist() == ["shifted_1h_early"]
+
+
+def _hourly(labels_pkt, values):
+    idx = pd.DatetimeIndex(pd.to_datetime(labels_pkt).tz_localize(qc.TZ), name="timestamp")
+    v = np.asarray(values, dtype=float)
+    return pd.DataFrame({"value": v, "valid": v >= 0}, index=idx)
+
+
+def test_backfill_fills_only_absent_hours():
+    archive = _hourly(["2022-09-05 01:00", "2022-09-05 02:00"], [40, 41])
+    back = _hourly(["2022-09-05 02:00", "2022-09-05 03:00", "2022-09-05 04:00"], [41, 42, -2])["value"]
+    merged, info = ahs.merge_backfill(archive, back)
+    assert list(merged["value"]) == [40, 41, 42, -2]
+    assert list(merged["valid"]) == [True, True, True, False]   # negative stays invalid
+    assert info == {"backfill_rows": 3, "backfill_overlap_identical": 1, "backfill_hours_added": 2}
+
+
+def test_backfill_disagreement_stops_the_build():
+    archive = _hourly(["2022-09-05 01:00"], [40])
+    back = _hourly(["2022-09-05 01:00"], [39])["value"]
+    with pytest.raises(ValueError):
+        ahs.merge_backfill(archive, back)
+
+
+def test_load_backfill_skips_missing_rows_and_reads_hour_ending_pkt(tmp_path):
+    pd.DataFrame({
+        "Site": "Lahore", "Parameter": "PM2.5 - Principal",
+        "Date (LT)": ["2022-09-02 02:00 PM", "2022-09-02 03:00 PM", "2022-10-01 12:00 AM"],
+        "Raw Conc.": [31.0, -999.0, 105.0], "Conc. Unit": "UG/M3", "Duration": "1 Hr",
+        "QC Name": ["Valid", "Missing", "Valid"],
+    }).to_csv(tmp_path / "Lahore_PM2.5_2022_09_MTD.csv", index=False)
+    s = ahs.load_backfill(tmp_path)
+    assert list(s) == [31.0, 105.0]
+    assert s.index[0] == pd.Timestamp("2022-09-02 14:00", tz=qc.TZ)
+    assert s.index[1] == pd.Timestamp("2022-10-01 00:00", tz=qc.TZ)
