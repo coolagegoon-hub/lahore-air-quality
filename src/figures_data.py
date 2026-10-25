@@ -180,7 +180,7 @@ def _ray(lat0, lon0, bearing_deg, r_km):
 
 
 BORDERS = PROJECT_ROOT / "data" / "raw" / "natural_earth" / "ne_10m_admin_0_boundary_lines_land.geojson"
-COASTLINE = PROJECT_ROOT / "data" / "raw" / "natural_earth" / "ne_50m_coastline.geojson"
+COASTLINE = PROJECT_ROOT / "data" / "raw" / "natural_earth" / "ne_10m_coastline.geojson"
 
 
 def draw_borders(ax, path: Path = BORDERS, bbox: tuple = (66, 81, 24, 38)) -> None:
@@ -205,7 +205,7 @@ def draw_borders(ax, path: Path = BORDERS, bbox: tuple = (66, 81, 24, 38)) -> No
 
 
 def draw_coastline(ax, path: Path = COASTLINE, bbox: tuple = (66, 81, 24, 38)) -> None:
-    """Natural Earth 1:50m coastline (public domain), so land borders end at a drawn coast."""
+    """Natural Earth 1:10m coastline (public domain), so land borders end at a drawn coast."""
     import json
 
     if not path.exists():
@@ -217,7 +217,7 @@ def draw_coastline(ax, path: Path = COASTLINE, bbox: tuple = (66, 81, 24, 38)) -
             xy = np.asarray(line)
             if xy[:, 0].max() < bbox[0] or xy[:, 0].min() > bbox[1] or xy[:, 1].max() < bbox[2] or xy[:, 1].min() > bbox[3]:
                 continue
-            ax.plot(xy[:, 0], xy[:, 1], color=INK_2, lw=0.8, zorder=4, solid_capstyle="round")
+            ax.plot(xy[:, 0], xy[:, 1], color=INK, lw=1.0, zorder=4, solid_capstyle="round")
 
 
 def fig3_fire_map(kept: pd.DataFrame):

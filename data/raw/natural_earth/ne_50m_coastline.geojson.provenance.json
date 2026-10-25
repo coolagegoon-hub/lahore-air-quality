@@ -1,8 +1,0 @@
-{
-  "source_url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_coastline.geojson",
-  "dataset": "Natural Earth 1:50m coastline",
-  "licence": "Public domain (Natural Earth)",
-  "downloaded_utc": "2026-10-25T07:56:46+00:00",
-  "size_bytes": 1640858,
-  "sha256": "271f1c4c1908312bac6b29d158ea1356544beafc129f260005300913aa5ea283"
-}

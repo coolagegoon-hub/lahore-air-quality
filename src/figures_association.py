@@ -79,7 +79,7 @@ def fig10_paths(summ: pd.DataFrame, paths: pd.DataFrame):
         ax.set_aspect(1 / np.cos(np.radians(32)))
         ax.set_xlabel("Longitude (°E)")
         ax.set_ylabel("Latitude (°N)")
-        ax.legend(loc="lower left", fontsize=7.5, frameon=True, framealpha=0.9, edgecolor="#cccccc")
+        ax.legend(loc="lower left", fontsize=7.5, frameon=True, framealpha=1.0, edgecolor="#cccccc")
         clean(ax, grid_y=False)
         fig.tight_layout()
         return fd.save(fig, "fig10_cluster_paths")
