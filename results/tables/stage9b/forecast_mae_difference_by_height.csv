@@ -1,0 +1,9 @@
+model,compared_to,subset,n,mae_diff,ci95_low,ci95_high,share_boot_below_0,height
+rf_L5_plus_traj,rf_L4_plus_massbalance,all,138,-0.43,-1.398,0.656,0.756,100m
+rf_L5_plus_traj,rf_L4_plus_massbalance,smog,53,-0.488,-2.651,1.727,0.653,100m
+rf_L1_plus_traj,rf_L1_history,all,138,-0.812,-2.449,0.976,0.804,100m
+rf_L1_plus_traj,rf_L1_history,smog,53,-0.936,-3.844,3.12,0.642,100m
+rf_L5_plus_traj,rf_L4_plus_massbalance,all,138,-0.325,-1.264,0.882,0.661,250m
+rf_L5_plus_traj,rf_L4_plus_massbalance,smog,53,-0.435,-2.835,1.99,0.651,250m
+rf_L1_plus_traj,rf_L1_history,all,138,-1.136,-3.011,0.754,0.872,250m
+rf_L1_plus_traj,rf_L1_history,smog,53,-1.995,-5.472,2.643,0.802,250m

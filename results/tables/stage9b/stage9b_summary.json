@@ -1,0 +1,33 @@
+{
+  "predeclaration": "results/tables/stage9b_multiheight_predeclaration.md",
+  "sha256": "679683366ae21ef5e078f89aac2217d0b025c0e2d53c1bd50bc0173224571ebb",
+  "input_checks": {
+    "100m": {
+      "trajectories": 2161,
+      "full_73_points": 2161,
+      "arrival_hours_utc": [
+        6
+      ],
+      "days_missing_vs_500m": 0,
+      "extra_days": 0
+    },
+    "250m": {
+      "trajectories": 2161,
+      "full_73_points": 2161,
+      "arrival_hours_utc": [
+        6
+      ],
+      "days_missing_vs_500m": 0,
+      "extra_days": 0
+    }
+  },
+  "nearest_centre_agreement_500m_pct": 93.67018323153803,
+  "decoupling_verdict_winter": {
+    "100m": "not supported",
+    "250m": "not supported"
+  },
+  "forecast_traj_layer_no_reliable_gain": {
+    "100m": true,
+    "250m": true
+  }
+}

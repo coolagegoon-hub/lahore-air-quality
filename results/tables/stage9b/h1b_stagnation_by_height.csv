@@ -1,0 +1,9 @@
+height,season,n_days,tercile_cuts_km,ratio_shortest_vs_longest,ci_low,ci_high,decoupling_rule
+100m,winter,475,"[360, 757]",0.9,0.753,1.031,not supported
+100m,pre-monsoon,385,"[335, 715]",0.839,0.707,0.911,not supported
+100m,monsoon,633,"[261, 535]",1.138,1.016,1.256,supported
+100m,post-monsoon,308,"[226, 604]",0.824,0.68,1.001,not supported
+250m,winter,475,"[358, 797]",0.881,0.745,1.007,not supported
+250m,pre-monsoon,385,"[349, 765]",0.825,0.696,0.898,not supported
+250m,monsoon,633,"[276, 572]",1.143,1.018,1.274,supported
+250m,post-monsoon,308,"[241, 594]",0.84,0.69,1.026,not supported
