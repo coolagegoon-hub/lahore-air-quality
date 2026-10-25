@@ -111,34 +111,50 @@ def fig7_increments():
 
 def fig8_timeseries(c: pd.DataFrame):
     """Two stacked panels in journal style (white background, no in-figure title or notes; the
-    paper's caption carries them): observed weekly PM2.5 as dots joined only across consecutive
-    weeks, against (a) the RF layer-5 forecast and (b) the Ridge PM2.5-history forecast."""
-    # put the common-set weeks on the full weekly calendar so gaps show as breaks
-    full = pd.DataFrame({"target_week_start": pd.date_range(c["target_week_start"].min(), c["target_week_start"].max(), freq="7D")})
-    s = full.merge(c, on="target_week_start", how="left")
+    paper's caption carries them). Unlike the scores, which use the common set ``c``, this figure
+    shows every eligible observed week and every forecast each model made over the common-set span,
+    so that fewer weeks are missing. Solid lines join consecutive weeks; faint dotted lines cross
+    weeks with no value, which are never filled in. One shared legend sits above the panels."""
+    p = pd.read_csv(TAB / "stage4" / "predictions_all_models.csv", parse_dates=["target_week_start"])
+    weeks = pd.date_range(c["target_week_start"].min(), c["target_week_start"].max(), freq="7D")
+    s = pd.DataFrame({"target_week_start": weeks}).merge(p, on="target_week_start", how="left")
+    s.loc[~s["observed_eligible"].eq(True), "observed"] = np.nan
     mid = s["target_week_start"] + pd.Timedelta(days=3)
+
+    def line_with_gaps(ax, y, color, lw, z):
+        ok = y.notna()
+        ax.plot(mid[ok], y[ok], color=color, lw=0.6, ls=(0, (1, 1.5)), alpha=0.8, zorder=z - 1)  # across gaps
+        ax.plot(mid, y, color=color, lw=lw, zorder=z)                                            # consecutive weeks
+
     with plt.rc_context({"figure.facecolor": "white", "axes.facecolor": "white", "savefig.facecolor": "white",
                          "font.size": 8.5, "axes.labelsize": 8.5, "xtick.labelsize": 8, "ytick.labelsize": 8}):
-        fig, axes = plt.subplots(2, 1, figsize=(7.2, 4.6), sharex=True, sharey=True)
+        fig, axes = plt.subplots(2, 1, figsize=(7.2, 4.9), sharex=True, sharey=True)
         panels = [("rf_L5_plus_traj", fd.BLUE, "(a) Random Forest, model 5 (all inputs)"),
                   ("history_model", fd.ORANGE, "(b) Ridge regression on past PM2.5")]
         for ax, (col, color, label) in zip(axes, panels):
             for a_, b_ in fd.smog_spans(mid.min(), mid.max()):
                 ax.axvspan(a_, b_, color="#efefef", lw=0, zorder=0)
-            ax.plot(mid, s["observed"], color="#555555", lw=0.7, zorder=2)
-            ax.scatter(mid, s["observed"], s=7, color="black", zorder=3, label="Observed", linewidths=0)
-            ax.plot(mid, s[col], color=color, lw=1.4, zorder=4, label="Forecast",
-                    marker="o", ms=2.2, mec=color, mfc=color)  # markers keep isolated weeks visible
+            line_with_gaps(ax, s["observed"], "#444444", 0.8, 3)
+            ax.scatter(mid, s["observed"], s=6, color="black", zorder=4, linewidths=0)
+            line_with_gaps(ax, s[col], color, 1.3, 6)
             ax.set_ylim(0, 460)
             ax.set_yticks([0, 100, 200, 300, 400])
             ax.grid(False)
             ax.grid(axis="y", color="#e3e3e3", lw=0.6)
             ax.spines[["top", "right"]].set_visible(False)
             ax.set_title(label, loc="left", fontsize=8.5, fontweight="normal", pad=3)
-            ax.legend(loc="upper right", fontsize=7.5, frameon=False, ncol=2, handlelength=1.6)
             ax.set_ylabel("PM$_{2.5}$ (µg m$^{-3}$)")
+        from matplotlib.lines import Line2D
+        from matplotlib.patches import Patch
+        handles = [Line2D([], [], color="#444444", lw=0.8, marker="o", ms=2.5, mfc="black", mec="black", label="Observed"),
+                   Line2D([], [], color=fd.BLUE, lw=1.3, label="Random Forest forecast"),
+                   Line2D([], [], color=fd.ORANGE, lw=1.3, label="Ridge forecast"),
+                   Line2D([], [], color="#777777", lw=0.8, ls=(0, (1, 1.5)), label="Gap (no value)"),
+                   Patch(facecolor="#efefef", label="October–January")]
+        fig.legend(handles=handles, loc="upper center", ncol=5, frameon=False, fontsize=7.5,
+                   bbox_to_anchor=(0.5, 1.0), handlelength=1.8, columnspacing=1.4)
         fig.align_ylabels(axes)
-        fig.tight_layout(h_pad=0.6)
+        fig.tight_layout(rect=(0, 0, 1, 0.94), h_pad=0.8)
         return fd.save(fig, "fig8_forecast_timeseries")
 
 
