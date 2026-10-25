@@ -20,6 +20,7 @@ See [CLAUDE.md](CLAUDE.md) for the binding scientific, leakage, data and integri
 | Inputs | ERA5 weather, FIRMS fires, one-box mass balance, HYSPLIT trajectories (all from the week before the forecast) | `PROGRESS_LOG.md` |
 | Main model | Walk-forward Random Forest, built up in 5 input layers | `results/tables/stage3_model_report.md`, `stage4_trajectory_report.md` |
 | Explanation | Fold-by-fold out-of-sample SHAP, by input group | `results/tables/stage5_shap_report.md` |
+| Pathway associations | Descriptive clustering of all trajectories; PM2.5 by pathway, ventilation and trajectory-weighted fire exposure within seasons (H1–H3) | `results/tables/stage7_association_report.md` |
 | Figures | 9 figures (data, SHAP, results) | `results/figures/` |
 
 **Main results** (rerun of 2026-10-25 with AirNow's backfilled September 2022 data, see `results/tables/stage6_backfill_report.md`; 138 eligible forecast weeks, 17 May 2021 – 10 Feb 2025, 53 of them Oct–Jan; mean absolute error in µg/m³):
@@ -37,11 +38,15 @@ See [CLAUDE.md](CLAUDE.md) for the binding scientific, leakage, data and integri
 - All models under-predict the highest smog-season weeks.
 - SHAP: the model relies mostly on recent PM2.5 (38%) and season (26%), then ERA5 weather (16%), mass balance (9%), fire (8%) and trajectories (4%). This describes model reliance, not causes.
 
-Analysis designs for Stages 3b, 4, 5 and 6 were written and committed **before** their results were computed (see the `*_predeclaration.md` files and the Git history).
+**Pathway associations** (Stage 7; 1,801 days; associations only):
+- Three trajectory clusters (Ward, pre-declared 30% rule): slow from SE 60%, fast from NW 37%, fast from W 3%.
+- Within seasons, fast north-westerly days had higher PM2.5 than slow south-easterly days (ratio 1.16 winter, 1.30 pre-monsoon, 1.09 monsoon, 1.07 post-monsoon), but these differences largely vanish after weather adjustment.
+- Ventilation: slope of log PM2.5 on log ventilation −0.47 in winter and post-monsoon (about 5% higher PM2.5 per 10% lower ventilation), weaker in pre-monsoon, none in the monsoon.
+- Trajectory-weighted fire exposure (Oct–Nov): positive, about 6% higher PM2.5 per doubling, above all year-shifted nulls.
+
+Analysis designs for Stages 3b, 4, 5, 6 and 7 were written and committed **before** their results were computed (see the `*_predeclaration.md` files and the Git history).
 
 **Not done / open:**
-- trajectory-weighted fire exposure;
-- association tests (H1–H3);
 - a four-season scheme;
 - embargo options (one week; per-source latency);
 - the paper itself.

@@ -406,3 +406,11 @@
 - Reran all 12 pipeline steps (about 7 minutes; the Mac was kept awake). Tests: `pytest -q tests` → 128 passed.
 - Results (`results/tables/stage6_backfill_report.md`): +599 valid hours; 1,801 complete days; 239 eligible weeks; common set 138 weeks (53 Oct–Jan). MAE: persistence 35.5, climatology 32.6, Ridge 29.7, RF L1–L5 29.2 / 28.9 / 28.1 / 28.7 / 28.3. L5 vs L4 −0.37 (−1.30, +0.77). Fire layer (L3 vs L2) −0.74 (−1.90, −0.01), narrowly excluding zero over all weeks only. SHAP shares essentially unchanged.
 - Added dated notes to the earlier reports; README updated.
+
+## 2026-10-25 — Stage 7: air-mass pathway association analysis (H1–H3)
+
+### Completed
+- Pre-declared the design (`results/tables/stage7_association_predeclaration.md`), approved by the user and committed (57f17be) before any analysis code ran.
+- Added `src/association_analysis.py`, `src/figures_association.py` and `tests/test_association_analysis.py` (9 tests); `figures_data.draw_borders` gained an optional bounding box (default unchanged; figures 1–4 unchanged).
+- Results (`results/tables/stage7_association_report.md`; 1,801 days): k = 3 clusters (slow from SE 60%, fast from NW 37%, fast from W 3%). C2/C1 PM2.5 ratios 1.16 / 1.30 / 1.09 / 1.07 (winter / pre-monsoon / monsoon / post-monsoon); only pre-monsoon clear after Holm (p = 0.006); all ≈ 1 after weather adjustment. H1b (slow air more polluted) not supported. H2 ventilation slopes −0.47 (winter), −0.16 (pre-monsoon), −0.07 (monsoon, n.s.), −0.47 (post-monsoon). H3 fire exposure (Oct–Nov) c = 0.081 (0.028–0.118), above all 9 year-shifted nulls.
+- Figures 10–14. Tests: `pytest -q tests` → 137 passed.
