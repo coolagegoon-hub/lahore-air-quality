@@ -70,7 +70,9 @@ def fig10_paths(summ: pd.DataFrame, paths: pd.DataFrame):
             ax.plot(lon, lat, color=col, lw=2.2, zorder=3,
                     label=f"C{c}: {r['speed']}, from {r['from_dir']} ({r['share_pct']:.0f}% of days)")
             ax.scatter(lon[1:], lat[1:], s=10, color=col, zorder=4)
-            ax.annotate(f"C{c}", (lon[-1], lat[-1]), xytext=(4, 4), textcoords="offset points", fontsize=8, color=col)
+            off = {1: (6, -4), 2: (-2, -14), 3: (4, 7)}.get(c, (4, 4))  # clear of the other paths
+            ax.annotate(f"C{c}", (lon[-1], lat[-1]), xytext=off, textcoords="offset points", fontsize=8, color=col,
+                        fontweight="bold", zorder=6, bbox={"boxstyle": "round,pad=0.15", "fc": "white", "ec": "none", "alpha": 0.85})
         ax.scatter([lon0], [lat0], marker="*", s=120, color="black", zorder=5, label="Lahore monitor")
         ax.set_xlim(33, 82)
         ax.set_ylim(22, 42)
