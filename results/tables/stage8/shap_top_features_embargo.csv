@@ -1,0 +1,11 @@
+feature,mean_abs_shap,run
+cos1,24.309626184433416,embargo
+log_last,9.039454751931467,embargo
+mb_prev_low_vent_hours,7.825104690405428,embargo
+era5_prev_blh_mean_m,4.272605790348686,embargo
+log_mean4,4.031824593668837,embargo
+sin1,2.9028027480964465,embargo
+sin2,2.4230075192067004,embargo
+era5_prev_msl_mean_hpa,2.189759555315452,embargo
+mb_prev_vc_night_mean,2.0825265205114807,embargo
+era5_prev_v10_mean,1.9048374007387356,embargo

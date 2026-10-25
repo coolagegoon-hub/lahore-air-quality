@@ -1,0 +1,158 @@
+{
+  "predeclaration": "results/tables/stage8_predeclaration.md",
+  "reproduction_max_abs_error": {
+    "persistence": 4.906831918560783e-07,
+    "climatology": 4.886128266434753e-07,
+    "history_model": 4.970694220673977e-07,
+    "rf_L4_plus_massbalance": 4.987576645021363e-07,
+    "rf_L5_plus_traj": 4.996788334210578e-07
+  },
+  "S3_hours_excluded_by_run_rule": 15,
+  "sensitivity_eligible_weeks": {
+    "S1_airnow_daily": 235,
+    "S2_complete_7_of_7": 223,
+    "S3_run_rule_6h": 239,
+    "S4_exclude_2020_2021": 155
+  },
+  "sensitivity_agreement": {
+    "S1_airnow_daily": {
+      "L5_vs_L4_interval_includes_0": true,
+      "L5_better_than_persistence": true,
+      "L5_vs_ridge_interval_includes_0": true,
+      "agrees_with_main": true
+    },
+    "S2_complete_7_of_7": {
+      "L5_vs_L4_interval_includes_0": true,
+      "L5_better_than_persistence": true,
+      "L5_vs_ridge_interval_includes_0": true,
+      "agrees_with_main": true
+    },
+    "S3_run_rule_6h": {
+      "L5_vs_L4_interval_includes_0": true,
+      "L5_better_than_persistence": true,
+      "L5_vs_ridge_interval_includes_0": true,
+      "agrees_with_main": true
+    },
+    "S4_exclude_2020_2021": {
+      "L5_vs_L4_interval_includes_0": true,
+      "L5_better_than_persistence": false,
+      "L5_vs_ridge_interval_includes_0": true,
+      "agrees_with_main": false
+    }
+  },
+  "shap_stability": {
+    "embargo": {
+      "spearman_family_shares": 0.886,
+      "top2_families": [
+        "Calendar (season)",
+        "PM2.5 history"
+      ],
+      "top2_same_as_main": true,
+      "top10_feature_overlap": 7,
+      "stable": true,
+      "shares_pct": {
+        "PM2.5 history": 19.1,
+        "Calendar (season)": 37.1,
+        "ERA5 weather": 16.9,
+        "Fire (FIRMS)": 7.5,
+        "Mass balance": 17.7,
+        "Trajectories": 1.7
+      },
+      "n_weeks": 136,
+      "additivity_max_error": 3.979039320256561e-13
+    },
+    "S1_airnow_daily": {
+      "spearman_family_shares": 1.0,
+      "top2_families": [
+        "Calendar (season)",
+        "PM2.5 history"
+      ],
+      "top2_same_as_main": true,
+      "top10_feature_overlap": 10,
+      "stable": true,
+      "shares_pct": {
+        "PM2.5 history": 39.2,
+        "Calendar (season)": 25.5,
+        "ERA5 weather": 14.7,
+        "Fire (FIRMS)": 8.6,
+        "Mass balance": 9.0,
+        "Trajectories": 3.1
+      },
+      "n_weeks": 131,
+      "additivity_max_error": 4.547473508864641e-13
+    },
+    "S2_complete_7_of_7": {
+      "spearman_family_shares": 1.0,
+      "top2_families": [
+        "Calendar (season)",
+        "PM2.5 history"
+      ],
+      "top2_same_as_main": true,
+      "top10_feature_overlap": 9,
+      "stable": true,
+      "shares_pct": {
+        "PM2.5 history": 39.0,
+        "Calendar (season)": 24.3,
+        "ERA5 weather": 15.7,
+        "Fire (FIRMS)": 8.5,
+        "Mass balance": 9.2,
+        "Trajectories": 3.3
+      },
+      "n_weeks": 124,
+      "additivity_max_error": 2.8421709430404007e-13
+    },
+    "S3_run_rule_6h": {
+      "spearman_family_shares": 1.0,
+      "top2_families": [
+        "Calendar (season)",
+        "PM2.5 history"
+      ],
+      "top2_same_as_main": true,
+      "top10_feature_overlap": 10,
+      "stable": true,
+      "shares_pct": {
+        "PM2.5 history": 38.0,
+        "Calendar (season)": 25.9,
+        "ERA5 weather": 15.6,
+        "Fire (FIRMS)": 8.3,
+        "Mass balance": 8.6,
+        "Trajectories": 3.7
+      },
+      "n_weeks": 138,
+      "additivity_max_error": 4.263256414560601e-13
+    },
+    "S4_exclude_2020_2021": {
+      "spearman_family_shares": 0.771,
+      "top2_families": [
+        "Calendar (season)",
+        "ERA5 weather"
+      ],
+      "top2_same_as_main": false,
+      "top10_feature_overlap": 6,
+      "stable": false,
+      "shares_pct": {
+        "PM2.5 history": 17.8,
+        "Calendar (season)": 25.5,
+        "ERA5 weather": 41.2,
+        "Fire (FIRMS)": 6.5,
+        "Mass balance": 7.4,
+        "Trajectories": 1.7
+      },
+      "n_weeks": 99,
+      "additivity_max_error": 3.126388037344441e-13
+    }
+  },
+  "H5_shap_stable_in_every_run": false,
+  "embargo_common_weeks": 136,
+  "embargo_common_smog_weeks": 52,
+  "embargo_common_span": [
+    "2021-05-17",
+    "2025-02-10"
+  ],
+  "diagnostic_common_weeks": 182,
+  "diagnostic_common_smog_weeks": 70,
+  "diagnostic_common_span": [
+    "2020-06-15",
+    "2025-02-10"
+  ]
+}

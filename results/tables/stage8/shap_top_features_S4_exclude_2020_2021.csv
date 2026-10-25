@@ -1,0 +1,11 @@
+feature,mean_abs_shap,run
+cos1,19.36743021927661,S4_exclude_2020_2021
+era5_prev_sp_mean_hpa,10.40048360199302,S4_exclude_2020_2021
+era5_prev_msl_mean_hpa,10.220608135618617,S4_exclude_2020_2021
+log_last,9.164640754365768,S4_exclude_2020_2021
+log_mean4,4.4037771527649054,S4_exclude_2020_2021
+era5_prev_t2m_min_c,3.2840944218553867,S4_exclude_2020_2021
+era5_prev_t2m_mean_c,2.8723794707103214,S4_exclude_2020_2021
+era5_prev_blh_mean_m,2.4673925429101007,S4_exclude_2020_2021
+mb_prev_css_index,1.7244123370303215,S4_exclude_2020_2021
+mb_prev_vc_mean,1.6694194054187605,S4_exclude_2020_2021

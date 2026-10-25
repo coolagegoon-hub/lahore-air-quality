@@ -1,0 +1,5 @@
+model,compared_to,subset,n,mae_diff,ci95_low,ci95_high,share_boot_below_0
+diag_L5,rf_L5_plus_traj,all,182,-5.908,-9.726,-2.24,0.999
+diag_L5,rf_L5_plus_traj,smog,70,-9.899,-18.127,-2.795,0.997
+diag_L4,rf_L5_plus_traj,all,182,-6.195,-10.096,-2.5,1.0
+diag_L4,rf_L5_plus_traj,smog,70,-10.384,-18.671,-3.153,0.998

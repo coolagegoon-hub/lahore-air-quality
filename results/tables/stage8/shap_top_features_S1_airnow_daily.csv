@@ -1,0 +1,11 @@
+feature,mean_abs_shap,run
+cos1,18.47749441708776,S1_airnow_daily
+log_last,17.728481039530102,S1_airnow_daily
+log_mean4,11.245993903726374,S1_airnow_daily
+mb_prev_low_vent_hours,3.749259853311567,S1_airnow_daily
+era5_prev_msl_mean_hpa,2.8645799800850615,S1_airnow_daily
+era5_prev_blh_mean_m,2.5628685582851882,S1_airnow_daily
+era5_prev_sp_mean_hpa,2.181212072321917,S1_airnow_daily
+sin1,1.9117095690476027,S1_airnow_daily
+fire_prev_east_se_frp_mw,1.882763427636313,S1_airnow_daily
+traj_mean_height_m,1.618557353624701,S1_airnow_daily

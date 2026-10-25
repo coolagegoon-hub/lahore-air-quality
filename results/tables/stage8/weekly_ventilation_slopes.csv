@@ -1,0 +1,5 @@
+season,n_weeks,slope,ci95_low,ci95_high
+winter,61,-0.576,-0.756,-0.412
+pre-monsoon,49,0.089,-0.277,0.394
+monsoon,86,0.116,-0.138,0.268
+post-monsoon,43,-0.852,-1.151,-0.63

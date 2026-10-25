@@ -1,0 +1,31 @@
+subset,group,n_weeks,mean_abs_shap,share_pct,mean_signed_shap,run
+all,PM2.5 history,136,12.705,19.097,0.446,embargo
+all,Calendar (season),136,24.691,37.115,2.095,embargo
+all,ERA5 weather,136,11.211,16.852,0.513,embargo
+all,Fire (FIRMS),136,4.996,7.51,0.137,embargo
+all,Mass balance,136,11.805,17.744,2.213,embargo
+all,Trajectories,136,1.119,1.682,-0.05,embargo
+all,PM2.5 history,131,28.584,39.15,3.867,S1_airnow_daily
+all,Calendar (season),131,18.62,25.504,2.474,S1_airnow_daily
+all,ERA5 weather,131,10.722,14.686,1.613,S1_airnow_daily
+all,Fire (FIRMS),131,6.253,8.565,0.753,S1_airnow_daily
+all,Mass balance,131,6.55,8.972,0.811,S1_airnow_daily
+all,Trajectories,131,2.281,3.124,0.506,S1_airnow_daily
+all,PM2.5 history,124,29.6,38.961,3.35,S2_complete_7_of_7
+all,Calendar (season),124,18.452,24.288,2.56,S2_complete_7_of_7
+all,ERA5 weather,124,11.934,15.708,1.721,S2_complete_7_of_7
+all,Fire (FIRMS),124,6.457,8.5,0.723,S2_complete_7_of_7
+all,Mass balance,124,6.991,9.201,0.959,S2_complete_7_of_7
+all,Trajectories,124,2.539,3.342,0.81,S2_complete_7_of_7
+all,PM2.5 history,138,27.672,37.972,3.071,S3_run_rule_6h
+all,Calendar (season),138,18.866,25.888,2.346,S3_run_rule_6h
+all,ERA5 weather,138,11.359,15.588,1.786,S3_run_rule_6h
+all,Fire (FIRMS),138,6.025,8.267,0.77,S3_run_rule_6h
+all,Mass balance,138,6.256,8.585,0.833,S3_run_rule_6h
+all,Trajectories,138,2.696,3.7,0.771,S3_run_rule_6h
+all,PM2.5 history,99,13.535,17.761,2.915,S4_exclude_2020_2021
+all,Calendar (season),99,19.42,25.484,4.336,S4_exclude_2020_2021
+all,ERA5 weather,99,31.379,41.178,9.702,S4_exclude_2020_2021
+all,Fire (FIRMS),99,4.974,6.527,1.163,S4_exclude_2020_2021
+all,Mass balance,99,5.626,7.382,0.703,S4_exclude_2020_2021
+all,Trajectories,99,1.271,1.668,0.219,S4_exclude_2020_2021

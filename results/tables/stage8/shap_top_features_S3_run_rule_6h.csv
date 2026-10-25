@@ -1,0 +1,11 @@
+feature,mean_abs_shap,run
+cos1,18.816028269171515,S3_run_rule_6h
+log_last,17.23051408115723,S3_run_rule_6h
+log_mean4,10.766749754866686,S3_run_rule_6h
+mb_prev_low_vent_hours,3.4940309821281055,S3_run_rule_6h
+era5_prev_blh_mean_m,3.0164240807997245,S3_run_rule_6h
+era5_prev_sp_mean_hpa,2.451158812414967,S3_run_rule_6h
+era5_prev_msl_mean_hpa,2.432149266960865,S3_run_rule_6h
+sin1,2.0562439282721017,S3_run_rule_6h
+traj_mean_height_m,1.9919794380725622,S3_run_rule_6h
+fire_prev_east_se_frp_mw,1.619049499364813,S3_run_rule_6h
