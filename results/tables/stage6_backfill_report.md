@@ -69,7 +69,7 @@ Checks: reproduction error 5.0 × 10⁻⁷ (tolerance 10⁻⁶); additivity 4.3 
 
 ## 5. Reading
 
-1. **Every error is a little lower** (0.3–1.2 µg/m³), mainly because five more weeks entered the common set. Rankings of the methods are unchanged, except that RF L3 now has the lowest overall MAE.
+1. **Every error is a little lower** (0.6–1.3 µg/m³), mainly because five more weeks entered the common set. Rankings of the methods are unchanged, except that RF L3 now has the lowest overall MAE.
 2. **The main conclusions hold:** the full model beats persistence and climatology, does not reliably beat the Ridge PM2.5-history model, and still under-predicts high smog weeks (Oct–Jan bias −23.9).
 3. **One change:** adding fire features (L3 vs L2) now has an interval that narrowly excludes zero over all weeks (−0.74; −1.90 to −0.01). It does not hold in Oct–Jan, and the next layer (mass balance) raises MAE by a similar amount (+0.58; −0.04 to +1.22). With this many comparisons, one narrow interval is weak evidence. It is reported, not emphasised.
 4. **Trajectories (primary comparison) still give no reliable gain:** −0.37 (−1.30, +0.77), with the same conclusion for 2- and 8-week blocks.

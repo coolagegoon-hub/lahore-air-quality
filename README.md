@@ -30,7 +30,7 @@ See [CLAUDE.md](CLAUDE.md) for the binding scientific, leakage, data and integri
   - L2 (+ ERA5) 28.9;
   - L3 (+ fire) 28.1;
   - L4 (+ mass balance) 28.7;
-  - L5 (+ HYSPLIT trajectories) 28.4.
+  - L5 (+ HYSPLIT trajectories) 28.3.
 - The full model beats persistence and climatology; 95% block-bootstrap intervals exclude zero.
 - It does **not** reliably beat the Ridge PM2.5-history model.
 - Only one added layer has an interval that excludes zero, narrowly: fire (L3 vs L2), −0.7 µg/m³, 95% CI −1.9 to −0.01, not in Oct–Jan. Trajectories (L5 vs L4): −0.4 µg/m³, 95% CI −1.3 to +0.8.

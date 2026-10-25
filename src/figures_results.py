@@ -1,9 +1,10 @@
 """Results figures for the paper (static PNG + PDF), drawn only from saved walk-forward outputs.
 
-Fig 6  MAE by method, all weeks vs Oct–Jan (common set, 133 / 52 weeks).
+Fig 6  MAE by method, all weeks vs Oct–Jan (common set).
 Fig 7  Change in MAE when each input layer is added, and layer 5 vs baselines, with 95%
        moving-block bootstrap CIs (4-week blocks) from Stages 3 and 4.
-Fig 8  Observed weekly PM2.5 vs RF layer 5 and Ridge PM2.5-history forecasts over the common set.
+Fig 8  Observed weekly PM2.5 vs (a) RF layer 5 and (b) Ridge PM2.5-history forecasts over the common set,
+       two stacked panels in journal style (no in-figure title or notes).
 Fig 9  Predicted vs observed (RF layer 5), with the 1:1 line.
 
 No model is refitted here. Colors: dataviz reference palette via src.figures_data.
@@ -109,23 +110,36 @@ def fig7_increments():
 
 
 def fig8_timeseries(c: pd.DataFrame):
+    """Two stacked panels in journal style (white background, no in-figure title or notes; the
+    paper's caption carries them): observed weekly PM2.5 as dots joined only across consecutive
+    weeks, against (a) the RF layer-5 forecast and (b) the Ridge PM2.5-history forecast."""
     # put the common-set weeks on the full weekly calendar so gaps show as breaks
     full = pd.DataFrame({"target_week_start": pd.date_range(c["target_week_start"].min(), c["target_week_start"].max(), freq="7D")})
     s = full.merge(c, on="target_week_start", how="left")
     mid = s["target_week_start"] + pd.Timedelta(days=3)
-    fig, ax = plt.subplots(figsize=(10.5, 4))
-    for a, b in fd.smog_spans(mid.min(), mid.max()):
-        ax.axvspan(a, b, color=fd.SHADE, lw=0, zorder=0)
-    ax.plot(mid, s["observed"], color=fd.INK, lw=1.6, label="Observed", zorder=3)
-    ax.plot(mid, s["rf_L5_plus_traj"], color=fd.BLUE, lw=2, label="RF L5 forecast", zorder=4)
-    ax.plot(mid, s["history_model"], color=fd.ORANGE, lw=1.6, ls=(0, (4, 2)), label="Ridge PM2.5-history forecast", zorder=2)
-    ax.set_ylim(0, None)
-    ax.set_ylabel("Weekly mean PM2.5 (µg/m³)")
-    ax.legend(loc="upper left", fontsize=8.5, ncol=3)
-    ax.set_title("Observed weekly PM2.5 and one-week-ahead forecasts", loc="left")
-    ax.text(0.0, -0.16, "Grey bands: Oct–Jan. Breaks: weeks outside the common set (ineligible weeks or missing forecasts).\n" + NOTE,
-            transform=ax.transAxes, fontsize=8, color=fd.INK_2, va="top")
-    return fd.save(fig, "fig8_forecast_timeseries")
+    with plt.rc_context({"figure.facecolor": "white", "axes.facecolor": "white", "savefig.facecolor": "white",
+                         "font.size": 8.5, "axes.labelsize": 8.5, "xtick.labelsize": 8, "ytick.labelsize": 8}):
+        fig, axes = plt.subplots(2, 1, figsize=(7.2, 4.6), sharex=True, sharey=True)
+        panels = [("rf_L5_plus_traj", fd.BLUE, "(a) Random Forest, model 5 (all inputs)"),
+                  ("history_model", fd.ORANGE, "(b) Ridge regression on past PM2.5")]
+        for ax, (col, color, label) in zip(axes, panels):
+            for a_, b_ in fd.smog_spans(mid.min(), mid.max()):
+                ax.axvspan(a_, b_, color="#efefef", lw=0, zorder=0)
+            ax.plot(mid, s["observed"], color="#555555", lw=0.7, zorder=2)
+            ax.scatter(mid, s["observed"], s=7, color="black", zorder=3, label="Observed", linewidths=0)
+            ax.plot(mid, s[col], color=color, lw=1.4, zorder=4, label="Forecast",
+                    marker="o", ms=2.2, mec=color, mfc=color)  # markers keep isolated weeks visible
+            ax.set_ylim(0, 460)
+            ax.set_yticks([0, 100, 200, 300, 400])
+            ax.grid(False)
+            ax.grid(axis="y", color="#e3e3e3", lw=0.6)
+            ax.spines[["top", "right"]].set_visible(False)
+            ax.set_title(label, loc="left", fontsize=8.5, fontweight="normal", pad=3)
+            ax.legend(loc="upper right", fontsize=7.5, frameon=False, ncol=2, handlelength=1.6)
+            ax.set_ylabel("PM$_{2.5}$ (µg m$^{-3}$)")
+        fig.align_ylabels(axes)
+        fig.tight_layout(h_pad=0.6)
+        return fd.save(fig, "fig8_forecast_timeseries")
 
 
 def fig9_scatter(c: pd.DataFrame):
