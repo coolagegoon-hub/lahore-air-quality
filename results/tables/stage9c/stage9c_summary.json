@@ -1,0 +1,38 @@
+{
+  "predeclaration": "results/tables/stage9c_gdas_predeclaration.md",
+  "gdas_sha256": "46b1cd0496f4eabeede3fac6ac1ce27640ecc86f69a9aa99ea63e05048ad8ef7",
+  "gdas_checks": {
+    "rows": 79935,
+    "trajectories": 1095,
+    "all_73_points": true,
+    "heights": [
+      100.0,
+      250.0,
+      500.0
+    ],
+    "arrival_hours_utc": [
+      6
+    ],
+    "days": 365,
+    "empty_values": 0
+  },
+  "analysis_days": 305,
+  "pct_gdas_same_as_stage7_label_analysis_days": 68.52459016393443,
+  "pct_ncep_nearest_same_as_stage7_label_analysis_days": 94.09836065573771,
+  "rule_inputs_500m_all_days": {
+    "pct_same_cluster": 69.58904109589041,
+    "spearman_dist72": 0.21623871300493805
+  },
+  "decision": {
+    "a_cluster_agreement_below_80pct": true,
+    "b_spearman_below_0.8": true,
+    "c_any_estimate_moved": true,
+    "changes_substantially": true
+  },
+  "decision_check_ncep_nearest_centre": {
+    "a_cluster_agreement_below_80pct": true,
+    "b_spearman_below_0.8": true,
+    "c_any_estimate_moved": true,
+    "changes_substantially": true
+  }
+}
